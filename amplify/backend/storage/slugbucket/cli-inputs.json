@@ -1,0 +1,14 @@
+{
+  "resourceName": "slugbucket",
+  "policyUUID": "6b6bc2c4",
+  "bucketName": "slughornapp112c6f2d45aa40dd829e1eea4418e68b",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "slughornappa3c48021": {}
+      },
+      "api": {
+        "slughornapp": {}
+      },
+      "storage": {
+        "slugbucket": {}
       }
     }
   }

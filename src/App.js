@@ -26,7 +26,18 @@ const App = ({ signOut }) => {
   }, []);
 
   async function fetchNotes() {
-    const apiData = await API.graphql({ query: listNotes });
+    const apiData = await API.graphql({ query: listNotes,
+      variables: { limit: 10 },
+  /*    filter: {
+        name: {
+            contains: "AAA Note"
+        }
+    }*/
+    });
+    
+   
+
+  
     const notesFromAPI = apiData.data.listNotes.items;
     await Promise.all(
       notesFromAPI.map(async (note) => {
@@ -47,6 +58,7 @@ const App = ({ signOut }) => {
       name: form.get("name"),
       description: form.get("description"),
       image: image.name,
+      externalid: form.get("externalid"),
     };
     if (!!data.image) await Storage.put(data.name, image);
     await API.graphql({
@@ -88,6 +100,14 @@ const App = ({ signOut }) => {
             variation="quiet"
             required
           />
+          <TextField
+            name="externalid"
+            placeholder="External Reference"
+            label="External Label"
+            
+            variation="quiet"
+            required
+          />
           <View
             name="image"
             as="input"
@@ -109,8 +129,14 @@ const App = ({ signOut }) => {
             justifyContent="center"
             alignItems="center"
           >
+            <Button variation="link" onClick={() => deleteNote(note)}>
+              Delete note
+            </Button>
             <Text as="strong" fontWeight={700}>
               {note.name}
+            </Text>
+            <Text as="strong" fontWeight={700}>
+              {note.externalid}
             </Text>
             <Text as="span">{note.description}</Text>
             {note.image && (
@@ -120,9 +146,7 @@ const App = ({ signOut }) => {
                 style={{ width: 400 }}
               />
             )}
-            <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete note
-            </Button>
+            
           </Flex>
         ))}
       </View>

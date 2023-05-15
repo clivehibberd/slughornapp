@@ -27,12 +27,14 @@ export default function NoteUpdateForm(props) {
     name: "",
     description: "",
     image: "",
+    externalid: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
   const [image, setImage] = React.useState(initialValues.image);
+  const [externalid, setExternalid] = React.useState(initialValues.externalid);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = noteRecord
@@ -41,6 +43,7 @@ export default function NoteUpdateForm(props) {
     setName(cleanValues.name);
     setDescription(cleanValues.description);
     setImage(cleanValues.image);
+    setExternalid(cleanValues.externalid);
     setErrors({});
   };
   const [noteRecord, setNoteRecord] = React.useState(noteModelProp);
@@ -58,6 +61,7 @@ export default function NoteUpdateForm(props) {
     name: [{ type: "Required" }],
     description: [],
     image: [],
+    externalid: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -88,6 +92,7 @@ export default function NoteUpdateForm(props) {
           name,
           description,
           image,
+          externalid,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -146,6 +151,7 @@ export default function NoteUpdateForm(props) {
               name: value,
               description,
               image,
+              externalid,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -172,6 +178,7 @@ export default function NoteUpdateForm(props) {
               name,
               description: value,
               image,
+              externalid,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -198,6 +205,7 @@ export default function NoteUpdateForm(props) {
               name,
               description,
               image: value,
+              externalid,
             };
             const result = onChange(modelFields);
             value = result?.image ?? value;
@@ -211,6 +219,33 @@ export default function NoteUpdateForm(props) {
         errorMessage={errors.image?.errorMessage}
         hasError={errors.image?.hasError}
         {...getOverrideProps(overrides, "image")}
+      ></TextField>
+      <TextField
+        label="Externalid"
+        isRequired={false}
+        isReadOnly={false}
+        value={externalid}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              description,
+              image,
+              externalid: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.externalid ?? value;
+          }
+          if (errors.externalid?.hasError) {
+            runValidationTasks("externalid", value);
+          }
+          setExternalid(value);
+        }}
+        onBlur={() => runValidationTasks("externalid", externalid)}
+        errorMessage={errors.externalid?.errorMessage}
+        hasError={errors.externalid?.hasError}
+        {...getOverrideProps(overrides, "externalid")}
       ></TextField>
       <Flex
         justifyContent="space-between"

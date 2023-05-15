@@ -14,6 +14,7 @@ import {
 } from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
 import { filterNotes } from "./graphql/queries";
+import { paramFilterNotes } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
@@ -21,22 +22,45 @@ import {
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
+  const [filteredNotes, setFilteredNotes ]= useState([]);
 
   useEffect(() => {
     fetchNotes();
+    searchNotes();
   }, []);
 
+  async function searchNotes(event) {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const formData = {
+      name: form.get("searchme"),
+    };
+    const apiData = await API.graphql({
+      query: paramFilterNotes,
+      variables: { name: formData.name },
+    });
+    const notesFromAPI = apiData.data.listNotes.items
+    console.log(notesFromAPI.listNotes);
+    await Promise.all(
+      notesFromAPI.map(async (note) => {
+        if (note.image) {
+          const url = await Storage.get(note.name);
+          note.image = url;
+        }
+      })
+    );
+    setFilteredNotes(notesFromAPI);
+  }
   async function fetchNotes() {
     const apiData = await API.graphql({
-      query: filterNotes,
-      variables: { limit: 10 },
+      query: listNotes,
+      variables: { limit: 1000 },
       /*    filter: {
         name: {
             contains: "AAA Note"
         }
     }*/
     });
-
     const notesFromAPI = apiData.data.listNotes.items;
     await Promise.all(
       notesFromAPI.map(async (note) => {
@@ -115,10 +139,53 @@ const App = ({ signOut }) => {
           <Button type="submit" variation="primary">
             Create Note
           </Button>
+
         </Flex>
       </View>
-
-      <Heading level={2}>Current Notes</Heading>
+      <View as="form" margin="3rem 0" onSubmit={searchNotes}>
+        <Flex direction="row" justifyContent="center">
+        <TextField
+            name="searchme"
+            placeholder="Search By"
+            label="Search For"
+            variation="quiet"
+          />
+          <Button type="submit" variation="primary">
+            SEARCH
+          </Button>
+        </Flex>
+    </View>
+    <View>
+    <Heading level={2}>Filtered Notes</Heading>
+      <View margin="3rem 0">
+        {filteredNotes.map((note) => (          
+          <Flex
+            key={note.id || note.name}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Button variation="link" onClick={() => deleteNote(note)}>
+              Delete note
+            </Button>
+            <Text as="strong" fontWeight={700}>
+              {note.name}
+            </Text>
+            <Text as="strong" fontWeight={700}>
+              {note.externalid}
+            </Text>
+            <Text as="span">{note.description}</Text>
+            {note.image && (
+              <Image
+                src={note.image}
+                alt={`visual aid for ${filteredNotes.name}`}
+                style={{ width: 400 }}
+              />
+            )}
+          </Flex>
+        ))}
+      </View>
+      <Heading level={2}>All Notes</Heading>
       <View margin="3rem 0">
         {notes.map((note) => (
           <Flex
@@ -146,6 +213,8 @@ const App = ({ signOut }) => {
             )}
           </Flex>
         ))}
+      </View>
+      
       </View>
       <Button onClick={signOut}>Sign Out</Button>
     </View>

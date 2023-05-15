@@ -35,6 +35,23 @@ export const listNotes = /* GraphQL */ `
   }
 `;
 
+export const paramFilterNotes = /* GraphQL */`
+query MyParameterisedFilter ($name: String!){
+  listNotes(filter: {name: {contains: $name}}) {
+    nextToken
+    items {
+      id
+      name
+      description
+      image
+      externalid
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+
 export const filterNotes = /* GraphQL */`
 query MyFirstFilter {
   listNotes(filter: {name: {contains: "PING"}}) {
@@ -50,5 +67,4 @@ query MyFirstFilter {
     }
   }
 }
-
-`;
+`

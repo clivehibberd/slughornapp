@@ -34,3 +34,21 @@ export const listNotes = /* GraphQL */ `
     }
   }
 `;
+
+export const filterNotes = /* GraphQL */`
+query MyFirstFilter {
+  listNotes(filter: {name: {contains: "PING"}}) {
+    nextToken
+    items {
+      id
+      name
+      description
+      image
+      externalid
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+`;

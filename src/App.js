@@ -13,6 +13,7 @@ import {
   withAuthenticator,
 } from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
+import { filterNotes } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
@@ -26,18 +27,16 @@ const App = ({ signOut }) => {
   }, []);
 
   async function fetchNotes() {
-    const apiData = await API.graphql({ query: listNotes,
+    const apiData = await API.graphql({
+      query: filterNotes,
       variables: { limit: 10 },
-  /*    filter: {
+      /*    filter: {
         name: {
             contains: "AAA Note"
         }
     }*/
     });
-    
-   
 
-  
     const notesFromAPI = apiData.data.listNotes.items;
     await Promise.all(
       notesFromAPI.map(async (note) => {
@@ -104,7 +103,6 @@ const App = ({ signOut }) => {
             name="externalid"
             placeholder="External Reference"
             label="External Label"
-            
             variation="quiet"
             required
           />
@@ -146,7 +144,6 @@ const App = ({ signOut }) => {
                 style={{ width: 400 }}
               />
             )}
-            
           </Flex>
         ))}
       </View>

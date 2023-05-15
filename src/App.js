@@ -15,6 +15,7 @@ import {
 import { listNotes } from "./graphql/queries";
 import { filterNotes } from "./graphql/queries";
 import { paramFilterNotes } from "./graphql/queries";
+import { searchByNameAndExternalId } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
@@ -22,7 +23,7 @@ import {
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
-  const [filteredNotes, setFilteredNotes ]= useState([]);
+  const [filteredNotes, setFilteredNotes] = useState([]);
 
   useEffect(() => {
     fetchNotes();
@@ -33,13 +34,14 @@ const App = ({ signOut }) => {
     event.preventDefault();
     const form = new FormData(event.target);
     const formData = {
-      name: form.get("searchme"),
+      name: form.get("searchname"),
+      externalid: form.get("searchexternalid"),
     };
     const apiData = await API.graphql({
-      query: paramFilterNotes,
-      variables: { name: formData.name },
+      query: searchByNameAndExternalId,
+      variables: { name: formData.name, externalid: formData.externalid },
     });
-    const notesFromAPI = apiData.data.listNotes.items
+    const notesFromAPI = apiData.data.listNotes.items;
     console.log(notesFromAPI.listNotes);
     await Promise.all(
       notesFromAPI.map(async (note) => {
@@ -127,6 +129,7 @@ const App = ({ signOut }) => {
             name="externalid"
             placeholder="External Reference"
             label="External Label"
+            labelHidden
             variation="quiet"
             required
           />
@@ -139,82 +142,86 @@ const App = ({ signOut }) => {
           <Button type="submit" variation="primary">
             Create Note
           </Button>
-
         </Flex>
       </View>
       <View as="form" margin="3rem 0" onSubmit={searchNotes}>
         <Flex direction="row" justifyContent="center">
-        <TextField
-            name="searchme"
+          <TextField
+            name="searchname"
             placeholder="Search By"
-            label="Search For"
+            label="Name"
+            variation="quiet"
+          />
+          <TextField
+            name="searchexternalid"
+            placeholder="Search By"
+            label="External Id"
             variation="quiet"
           />
           <Button type="submit" variation="primary">
             SEARCH
           </Button>
         </Flex>
-    </View>
-    <View>
-    <Heading level={2}>Filtered Notes</Heading>
-      <View margin="3rem 0">
-        {filteredNotes.map((note) => (          
-          <Flex
-            key={note.id || note.name}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete note
-            </Button>
-            <Text as="strong" fontWeight={700}>
-              {note.name}
-            </Text>
-            <Text as="strong" fontWeight={700}>
-              {note.externalid}
-            </Text>
-            <Text as="span">{note.description}</Text>
-            {note.image && (
-              <Image
-                src={note.image}
-                alt={`visual aid for ${filteredNotes.name}`}
-                style={{ width: 400 }}
-              />
-            )}
-          </Flex>
-        ))}
       </View>
-      <Heading level={2}>All Notes</Heading>
-      <View margin="3rem 0">
-        {notes.map((note) => (
-          <Flex
-            key={note.id || note.name}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete note
-            </Button>
-            <Text as="strong" fontWeight={700}>
-              {note.name}
-            </Text>
-            <Text as="strong" fontWeight={700}>
-              {note.externalid}
-            </Text>
-            <Text as="span">{note.description}</Text>
-            {note.image && (
-              <Image
-                src={note.image}
-                alt={`visual aid for ${notes.name}`}
-                style={{ width: 400 }}
-              />
-            )}
-          </Flex>
-        ))}
-      </View>
-      
+      <View>
+        <Heading level={2}>Filtered Notes</Heading>
+        <View margin="3rem 0">
+          {filteredNotes.map((note) => (
+            <Flex
+              key={note.id || note.name}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Button variation="link" onClick={() => deleteNote(note)}>
+                Delete note
+              </Button>
+              <Text as="strong" fontWeight={700}>
+                {note.name}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+                {note.externalid}
+              </Text>
+              <Text as="span">{note.description}</Text>
+              {note.image && (
+                <Image
+                  src={note.image}
+                  alt={`visual aid for ${filteredNotes.name}`}
+                  style={{ width: 400 }}
+                />
+              )}
+            </Flex>
+          ))}
+        </View>
+        <Heading level={2}>All Notes</Heading>
+        <View margin="3rem 0">
+          {notes.map((note) => (
+            <Flex
+              key={note.id || note.name}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Button variation="link" onClick={() => deleteNote(note)}>
+                Delete note
+              </Button>
+              <Text as="strong" fontWeight={700}>
+                {note.name}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+                {note.externalid}
+              </Text>
+              <Text as="span">{note.description}</Text>
+              {note.image && (
+                <Image
+                  src={note.image}
+                  alt={`visual aid for ${notes.name}`}
+                  style={{ width: 400 }}
+                />
+              )}
+            </Flex>
+          ))}
+        </View>
       </View>
       <Button onClick={signOut}>Sign Out</Button>
     </View>

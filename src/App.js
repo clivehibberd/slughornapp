@@ -16,6 +16,7 @@ import { listNotes } from "./graphql/queries";
 import { filterNotes } from "./graphql/queries";
 import { paramFilterNotes } from "./graphql/queries";
 import { searchByNameAndExternalId } from "./graphql/queries";
+import { resolvers } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
@@ -33,6 +34,7 @@ const App = ({ signOut }) => {
   async function searchNotes(event) {
     event.preventDefault();
     const form = new FormData(event.target);
+    
     const formData = {
       name: form.get("searchname"),
       externalid: form.get("searchexternalid"),

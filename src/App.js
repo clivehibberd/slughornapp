@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { API, Storage } from "aws-amplify";
+import Button from '@mui/material/Button';
 import {
-  Button,
   Flex,
   Heading,
   Image,
@@ -21,6 +21,7 @@ import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
+
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
@@ -160,7 +161,7 @@ const App = ({ signOut }) => {
             label="External Id"
             variation="quiet"
           />
-          <Button type="submit" variation="primary">
+          <Button color='primary' variant="contained"   type="submit" >
             SEARCH
           </Button>
         </Flex>

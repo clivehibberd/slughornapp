@@ -9,3 +9,82 @@ type Note @model @auth(rules: [{allow: public}]) {
   image: String
   externalid: String
 } 
+
+
+enum EyeColor {
+  BLUE
+  GREEN
+  GREY
+  BROWN
+  HAZEL
+}
+
+enum AgeGroup{
+  YOUNG
+  THIRTIES
+  FORTIES
+  FIFTIES
+  SIXTIES
+  OLD
+}
+
+enum Gender{
+  MALE
+  FEMALE
+  TRANS
+}
+
+enum Height{
+  SHORT
+  AVG
+  TALL
+}
+
+enum Build{
+  SKINNY
+  SLIM
+  AVG
+  TUBBY
+  FAT
+  HUGE
+}
+
+enum HairColor{
+  BLONDE
+  BROWN
+  BLACK
+  GREY
+  RED
+}
+
+enum FacialHair{
+  NONE
+  BEARD
+  MOUSTACHE
+  GOATEE
+}
+
+enum Ethnicity{
+  WHITE
+  AFROCARR
+  ASIAN
+  ORIENTAL
+  AFRICAN
+  SEASIAN
+}
+
+
+type Person @model @auth(rules: [ { allow: public } ] ){
+  id: ID!
+  firstname: String!
+  lastname : String !
+  externalid : String 
+  gender: Gender!
+  eyecolor: EyeColor!
+  agegroup: AgeGroup!
+  height: Height
+  build: Build
+  hair: HairColor!
+  facialhair: FacialHair
+  ethnicity: Ethnicity
+}

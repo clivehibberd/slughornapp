@@ -40,3 +40,63 @@ export const onDeleteNote = /* GraphQL */ `
     }
   }
 `;
+export const onCreatePerson = /* GraphQL */ `
+  subscription OnCreatePerson($filter: ModelSubscriptionPersonFilterInput) {
+    onCreatePerson(filter: $filter) {
+      id
+      firstname
+      lastname
+      externalid
+      gender
+      eyecolor
+      agegroup
+      height
+      build
+      hair
+      facialhair
+      ethnicity
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePerson = /* GraphQL */ `
+  subscription OnUpdatePerson($filter: ModelSubscriptionPersonFilterInput) {
+    onUpdatePerson(filter: $filter) {
+      id
+      firstname
+      lastname
+      externalid
+      gender
+      eyecolor
+      agegroup
+      height
+      build
+      hair
+      facialhair
+      ethnicity
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePerson = /* GraphQL */ `
+  subscription OnDeletePerson($filter: ModelSubscriptionPersonFilterInput) {
+    onDeletePerson(filter: $filter) {
+      id
+      firstname
+      lastname
+      externalid
+      gender
+      eyecolor
+      agegroup
+      height
+      build
+      hair
+      facialhair
+      ethnicity
+      createdAt
+      updatedAt
+    }
+  }
+`;

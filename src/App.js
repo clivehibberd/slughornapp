@@ -13,10 +13,10 @@ import {
   withAuthenticator,
 } from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
-import { filterNotes } from "./graphql/queries";
-import { paramFilterNotes } from "./graphql/queries";
-import { searchByNameAndExternalId } from "./graphql/queries";
-import { resolvers } from "./graphql/queries";
+//import { filterNotes } from "./graphql/queries";
+//import { paramFilterNotes } from "./graphql/queries";
+import { searchByNameAndExternalId } from "./graphql/slugqueries";
+//import { resolvers } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,

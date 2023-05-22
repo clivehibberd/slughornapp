@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { API, Storage } from "aws-amplify";
@@ -15,6 +16,7 @@ import {
 import { listNotes } from "./graphql/queries";
 //import { filterNotes } from "./graphql/queries";
 //import { paramFilterNotes } from "./graphql/queries";
+import {listGenders} from "./graphql/queries";
 import { searchByNameAndExternalId } from "./graphql/slugqueries";
 //import { resolvers } from "./graphql/queries";
 import {
@@ -22,17 +24,23 @@ import {
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
 
+import thevalue from "./EnumRadioSelector";
+
+
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
+  const [genders, setGenders] = useState([]);
 
   useEffect(() => {
     fetchNotes();
     searchNotes();
+    getGenders();
   }, []);
 
   async function searchNotes(event) {
+    console.log(thevalue.name);
     event.preventDefault();
     const form = new FormData(event.target);
     
@@ -56,6 +64,22 @@ const App = ({ signOut }) => {
     );
     setFilteredNotes(notesFromAPI);
   }
+  async function getGenders(){
+    const apiData = await API.graphql({
+      query: listGenders,
+    }
+    
+    );
+    const gendersFromSchema = apiData.data.__type.enumValues;
+    await Promise.all(
+      gendersFromSchema.map(async (value) => {
+        
+        console.log (value.name);
+      })
+    );
+    setGenders(gendersFromSchema);
+  }
+  
   async function fetchNotes() {
     const apiData = await API.graphql({
       query: listNotes,
@@ -72,13 +96,17 @@ const App = ({ signOut }) => {
         if (note.image) {
           const url = await Storage.get(note.name);
           note.image = url;
+          
         }
+        console.log (note.name);
       })
     );
     setNotes(notesFromAPI);
+    
   }
 
   async function createNote(event) {
+    
     event.preventDefault();
     const form = new FormData(event.target);
     const image = form.get("image");
@@ -222,6 +250,26 @@ const App = ({ signOut }) => {
                   style={{ width: 400 }}
                 />
               )}
+            </Flex>
+          ))}
+        </View>
+        <Heading level={2}>Genders</Heading>
+        <View margin="3rem 0">
+          {genders.map((value) => (
+            <Flex
+              key={value.id || value.name}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Button variation="link" >
+                {value.name}
+              </Button>
+              <Text as="strong" fontWeight={700}>
+                {value.name}
+              </Text>
+              
+              
             </Flex>
           ))}
         </View>

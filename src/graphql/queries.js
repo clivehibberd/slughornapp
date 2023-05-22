@@ -81,3 +81,14 @@ export const listPeople = /* GraphQL */ `
     }
   }
 `;
+
+export const listGenders = /* GraphQL */`
+query listGenders{
+ __type (name: "Gender"){
+  name
+  enumValues{
+    name
+  }
+ }
+}
+`;

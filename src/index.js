@@ -1,10 +1,12 @@
-import React from 'react';
+import  React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
+import Slug from './components/Slug';
+import EnumRadioSelector from "./EnumRadioSelector";
 Amplify.configure(config);
 
 
@@ -12,7 +14,15 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <App />hello
+   <EnumRadioSelector enumType={'EyeColor'} />
+   <EnumRadioSelector enumType={'HairColor'} />
+   <EnumRadioSelector enumType={'Build'} />
+   <EnumRadioSelector enumType={'Gender'} />
+   <EnumRadioSelector enumType={'AgeGroup'} />
+   <EnumRadioSelector enumType={'Height'} />
+   <EnumRadioSelector enumType={'FacialHair'} />
+   <EnumRadioSelector enumType={'Ethnicity'} />
+  
   </React.StrictMode>
 );
 

@@ -56,3 +56,13 @@ export const searchByNameAndExternalId = /* GraphQL */ `
     }
   }
 `;
+
+export const listEnums  = /* GraphQL */`
+query listEnums($name: String!){
+ __type (name: $name){
+  name
+  enumValues{
+    name
+  }
+ }
+}`;

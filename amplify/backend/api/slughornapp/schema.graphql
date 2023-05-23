@@ -79,7 +79,7 @@ enum Glasses {
   FANCY
 }
 
-enum DRESS {
+enum Dress {
   CORPORATE
   SLICK
   FANCY

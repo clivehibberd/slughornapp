@@ -24,6 +24,8 @@ export declare type PersonCreateFormInputValues = {
     hair?: string;
     facialhair?: string;
     ethnicity?: string;
+    glasses?: string;
+    dress?: string;
 };
 export declare type PersonCreateFormValidationValues = {
     firstname?: ValidationFunction<string>;
@@ -37,6 +39,8 @@ export declare type PersonCreateFormValidationValues = {
     hair?: ValidationFunction<string>;
     facialhair?: ValidationFunction<string>;
     ethnicity?: ValidationFunction<string>;
+    glasses?: ValidationFunction<string>;
+    dress?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PersonCreateFormOverridesProps = {
@@ -52,6 +56,8 @@ export declare type PersonCreateFormOverridesProps = {
     hair?: PrimitiveOverrideProps<SelectFieldProps>;
     facialhair?: PrimitiveOverrideProps<SelectFieldProps>;
     ethnicity?: PrimitiveOverrideProps<SelectFieldProps>;
+    glasses?: PrimitiveOverrideProps<SelectFieldProps>;
+    dress?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type PersonCreateFormProps = React.PropsWithChildren<{
     overrides?: PersonCreateFormOverridesProps | undefined | null;

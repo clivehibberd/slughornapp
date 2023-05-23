@@ -40,6 +40,8 @@ export default function PersonCreateForm(props) {
     hair: "",
     facialhair: "",
     ethnicity: "",
+    glasses: "",
+    dress: "",
   };
   const [firstname, setFirstname] = React.useState(initialValues.firstname);
   const [lastname, setLastname] = React.useState(initialValues.lastname);
@@ -52,6 +54,8 @@ export default function PersonCreateForm(props) {
   const [hair, setHair] = React.useState(initialValues.hair);
   const [facialhair, setFacialhair] = React.useState(initialValues.facialhair);
   const [ethnicity, setEthnicity] = React.useState(initialValues.ethnicity);
+  const [glasses, setGlasses] = React.useState(initialValues.glasses);
+  const [dress, setDress] = React.useState(initialValues.dress);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setFirstname(initialValues.firstname);
@@ -65,6 +69,8 @@ export default function PersonCreateForm(props) {
     setHair(initialValues.hair);
     setFacialhair(initialValues.facialhair);
     setEthnicity(initialValues.ethnicity);
+    setGlasses(initialValues.glasses);
+    setDress(initialValues.dress);
     setErrors({});
   };
   const validations = {
@@ -72,13 +78,15 @@ export default function PersonCreateForm(props) {
     lastname: [{ type: "Required" }],
     externalid: [],
     gender: [{ type: "Required" }],
-    eyecolor: [{ type: "Required" }],
-    agegroup: [{ type: "Required" }],
+    eyecolor: [],
+    agegroup: [],
     height: [],
     build: [],
-    hair: [{ type: "Required" }],
+    hair: [],
     facialhair: [],
     ethnicity: [],
+    glasses: [],
+    dress: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -117,6 +125,8 @@ export default function PersonCreateForm(props) {
           hair,
           facialhair,
           ethnicity,
+          glasses,
+          dress,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -182,6 +192,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.firstname ?? value;
@@ -216,6 +228,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.lastname ?? value;
@@ -250,6 +264,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.externalid ?? value;
@@ -284,6 +300,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.gender ?? value;
@@ -334,6 +352,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.eyecolor ?? value;
@@ -394,6 +414,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.agegroup ?? value;
@@ -459,6 +481,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.height ?? value;
@@ -509,6 +533,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.build ?? value;
@@ -574,6 +600,8 @@ export default function PersonCreateForm(props) {
               hair: value,
               facialhair,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.hair ?? value;
@@ -634,6 +662,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair: value,
               ethnicity,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.facialhair ?? value;
@@ -689,6 +719,8 @@ export default function PersonCreateForm(props) {
               hair,
               facialhair,
               ethnicity: value,
+              glasses,
+              dress,
             };
             const result = onChange(modelFields);
             value = result?.ethnicity ?? value;
@@ -732,6 +764,120 @@ export default function PersonCreateForm(props) {
           children="Seasian"
           value="SEASIAN"
           {...getOverrideProps(overrides, "ethnicityoption5")}
+        ></option>
+      </SelectField>
+      <SelectField
+        label="Glasses"
+        placeholder="Please select an option"
+        isDisabled={false}
+        value={glasses}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              firstname,
+              lastname,
+              externalid,
+              gender,
+              eyecolor,
+              agegroup,
+              height,
+              build,
+              hair,
+              facialhair,
+              ethnicity,
+              glasses: value,
+              dress,
+            };
+            const result = onChange(modelFields);
+            value = result?.glasses ?? value;
+          }
+          if (errors.glasses?.hasError) {
+            runValidationTasks("glasses", value);
+          }
+          setGlasses(value);
+        }}
+        onBlur={() => runValidationTasks("glasses", glasses)}
+        errorMessage={errors.glasses?.errorMessage}
+        hasError={errors.glasses?.hasError}
+        {...getOverrideProps(overrides, "glasses")}
+      >
+        <option
+          children="None"
+          value="NONE"
+          {...getOverrideProps(overrides, "glassesoption0")}
+        ></option>
+        <option
+          children="Wire"
+          value="WIRE"
+          {...getOverrideProps(overrides, "glassesoption1")}
+        ></option>
+        <option
+          children="Heavy"
+          value="HEAVY"
+          {...getOverrideProps(overrides, "glassesoption2")}
+        ></option>
+        <option
+          children="Fancy"
+          value="FANCY"
+          {...getOverrideProps(overrides, "glassesoption3")}
+        ></option>
+      </SelectField>
+      <SelectField
+        label="Dress"
+        placeholder="Please select an option"
+        isDisabled={false}
+        value={dress}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              firstname,
+              lastname,
+              externalid,
+              gender,
+              eyecolor,
+              agegroup,
+              height,
+              build,
+              hair,
+              facialhair,
+              ethnicity,
+              glasses,
+              dress: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.dress ?? value;
+          }
+          if (errors.dress?.hasError) {
+            runValidationTasks("dress", value);
+          }
+          setDress(value);
+        }}
+        onBlur={() => runValidationTasks("dress", dress)}
+        errorMessage={errors.dress?.errorMessage}
+        hasError={errors.dress?.hasError}
+        {...getOverrideProps(overrides, "dress")}
+      >
+        <option
+          children="Corporate"
+          value="CORPORATE"
+          {...getOverrideProps(overrides, "dressoption0")}
+        ></option>
+        <option
+          children="Slick"
+          value="SLICK"
+          {...getOverrideProps(overrides, "dressoption1")}
+        ></option>
+        <option
+          children="Fancy"
+          value="FANCY"
+          {...getOverrideProps(overrides, "dressoption2")}
+        ></option>
+        <option
+          children="Scruffy"
+          value="SCRUFFY"
+          {...getOverrideProps(overrides, "dressoption3")}
         ></option>
       </SelectField>
       <Flex

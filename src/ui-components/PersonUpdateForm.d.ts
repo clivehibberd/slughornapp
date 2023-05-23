@@ -25,6 +25,8 @@ export declare type PersonUpdateFormInputValues = {
     hair?: string;
     facialhair?: string;
     ethnicity?: string;
+    glasses?: string;
+    dress?: string;
 };
 export declare type PersonUpdateFormValidationValues = {
     firstname?: ValidationFunction<string>;
@@ -38,6 +40,8 @@ export declare type PersonUpdateFormValidationValues = {
     hair?: ValidationFunction<string>;
     facialhair?: ValidationFunction<string>;
     ethnicity?: ValidationFunction<string>;
+    glasses?: ValidationFunction<string>;
+    dress?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PersonUpdateFormOverridesProps = {
@@ -53,6 +57,8 @@ export declare type PersonUpdateFormOverridesProps = {
     hair?: PrimitiveOverrideProps<SelectFieldProps>;
     facialhair?: PrimitiveOverrideProps<SelectFieldProps>;
     ethnicity?: PrimitiveOverrideProps<SelectFieldProps>;
+    glasses?: PrimitiveOverrideProps<SelectFieldProps>;
+    dress?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type PersonUpdateFormProps = React.PropsWithChildren<{
     overrides?: PersonUpdateFormOverridesProps | undefined | null;

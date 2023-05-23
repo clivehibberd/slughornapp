@@ -84,6 +84,7 @@ enum Dress {
   SLICK
   FANCY
   SCRUFFY
+  HIPPY
 }
 
 type Person @model @auth(rules: [{ allow: public }]) {

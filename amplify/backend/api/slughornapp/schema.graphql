@@ -54,6 +54,7 @@ enum HairColor {
   BLACK
   GREY
   RED
+  BALD
 }
 
 enum FacialHair {

@@ -74,6 +74,8 @@ export const listPeople = /* GraphQL */ `
         hair
         facialhair
         ethnicity
+        glasses
+        dress
         createdAt
         updatedAt
       }

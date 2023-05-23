@@ -18,7 +18,10 @@ export default function CharacteristicsSelector() {
       <EnumRadioSelector enumType={"HairColor"} enumMap={enumMap} />
       <EnumRadioSelector enumType={"Height"} enumMap={enumMap} />
       <EnumRadioSelector enumType={"EyeColor"} enumMap={enumMap} />
-    End of CharacteristicsSelector
+      <div>
+      End of CharacteristicsSelector
+      </div>
+    
     
     </>
   );

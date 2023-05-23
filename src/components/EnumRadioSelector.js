@@ -5,11 +5,11 @@ import RadioGroup, { useRadioGroup } from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import { useState, useEffect, useReducer } from "react";
-import "./App.css";
+import "../App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { API } from "aws-amplify";
 
-import { listEnums } from "./graphql/slugqueries";
+import { listEnums } from "../graphql/slugqueries";
 
 const StyledFormControlLabel = styled((props) => (
   <FormControlLabel {...props} />
@@ -36,36 +36,24 @@ MyFormControlLabel.propTypes = {
 };
 
 /**
- * Store the selected enum value in the context with it's type
- * E.G. {Gender, Male}
- * @param {The Enum Type we are dealing with} enumType
- * @param {The String value of the selected enum} value
- */
-async function setSelectionInContext(enumType, value) {
-  console.log("Storing Selected...", enumType, " ", value);
-}
-
-/**
  * The Generic RadioEnum Component
  * @param {String Representation of the enum typewe are trying to select}
  * @returns
  */
-export default function GenderRadioGroup({ enumType }) {
+export default function EnumRadioGroup({ enumType, enumMap }) {
   const [enumList, setEnumList] = useState([]);
-  //const [selectedEnum, setSelectedEnum] = useState([]);
-  //const [savedBooks, setSavedBooks] = useReducer(savedBooksReducer, []);
-
   const savedEnumReducer = (state, action) => {
     // get the book object and the type of action by destructuring
     const { enumType, enumValue, type } = action;
+    //console.log("Current state ", state);
+    console.log("Current state ", enumMap);
     if (type === "add") {
-      console.log("Reducer returning ", enumType, enumValue);
-      state.set(enumType,enumValue.name);
-      // You'll never see the addition of elements to the map becuase you 
-      // are overwriting the keys you tosser!!!
-      console.log("Have set values in the map", state);
-      // How the Fuck do you concatinate two bloody maps!!!
-      return state;
+     // state.set(enumType,enumValue.name);
+     enumMap.set(enumType,enumValue.name);
+      //console.log("New state ", state);
+      console.log("New state ", enumMap);
+      //return state;
+      return enumMap;
     } else {
       console.log("Action does not have a meaning");
     }
@@ -83,9 +71,7 @@ export default function GenderRadioGroup({ enumType }) {
     getEnums();
   }, []);
 
-  async function setSelectionInContext(enumType, value) {
-    console.log("Storing Selected...", enumType, " ", value);
-  }
+  
   /**
    * Get the enum list from the GraphQl API and set it in the state
    */

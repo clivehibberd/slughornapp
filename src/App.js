@@ -24,7 +24,7 @@ import {
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
 
-import thevalue from "./EnumRadioSelector";
+import thevalue from "./components/EnumRadioSelector";
 
 
 

@@ -77,7 +77,7 @@ export default function PersonCreateForm(props) {
     firstname: [{ type: "Required" }],
     lastname: [{ type: "Required" }],
     externalid: [],
-    gender: [{ type: "Required" }],
+    gender: [],
     eyecolor: [],
     agegroup: [],
     height: [],
@@ -280,10 +280,10 @@ export default function PersonCreateForm(props) {
         hasError={errors.externalid?.hasError}
         {...getOverrideProps(overrides, "externalid")}
       ></TextField>
-      <SelectField
+      <TextField
         label="Gender"
-        placeholder="Please select an option"
-        isDisabled={false}
+        isRequired={false}
+        isReadOnly={false}
         value={gender}
         onChange={(e) => {
           let { value } = e.target;
@@ -315,23 +315,7 @@ export default function PersonCreateForm(props) {
         errorMessage={errors.gender?.errorMessage}
         hasError={errors.gender?.hasError}
         {...getOverrideProps(overrides, "gender")}
-      >
-        <option
-          children="Male"
-          value="MALE"
-          {...getOverrideProps(overrides, "genderoption0")}
-        ></option>
-        <option
-          children="Female"
-          value="FEMALE"
-          {...getOverrideProps(overrides, "genderoption1")}
-        ></option>
-        <option
-          children="Trans"
-          value="TRANS"
-          {...getOverrideProps(overrides, "genderoption2")}
-        ></option>
-      </SelectField>
+      ></TextField>
       <SelectField
         label="Eyecolor"
         placeholder="Please select an option"
@@ -394,10 +378,10 @@ export default function PersonCreateForm(props) {
           {...getOverrideProps(overrides, "eyecoloroption4")}
         ></option>
       </SelectField>
-      <SelectField
+      <TextField
         label="Agegroup"
-        placeholder="Please select an option"
-        isDisabled={false}
+        isRequired={false}
+        isReadOnly={false}
         value={agegroup}
         onChange={(e) => {
           let { value } = e.target;
@@ -429,38 +413,7 @@ export default function PersonCreateForm(props) {
         errorMessage={errors.agegroup?.errorMessage}
         hasError={errors.agegroup?.hasError}
         {...getOverrideProps(overrides, "agegroup")}
-      >
-        <option
-          children="Young"
-          value="YOUNG"
-          {...getOverrideProps(overrides, "agegroupoption0")}
-        ></option>
-        <option
-          children="Thirties"
-          value="THIRTIES"
-          {...getOverrideProps(overrides, "agegroupoption1")}
-        ></option>
-        <option
-          children="Forties"
-          value="FORTIES"
-          {...getOverrideProps(overrides, "agegroupoption2")}
-        ></option>
-        <option
-          children="Fifties"
-          value="FIFTIES"
-          {...getOverrideProps(overrides, "agegroupoption3")}
-        ></option>
-        <option
-          children="Sixties"
-          value="SIXTIES"
-          {...getOverrideProps(overrides, "agegroupoption4")}
-        ></option>
-        <option
-          children="Old"
-          value="OLD"
-          {...getOverrideProps(overrides, "agegroupoption5")}
-        ></option>
-      </SelectField>
+      ></TextField>
       <SelectField
         label="Height"
         placeholder="Please select an option"
@@ -511,6 +464,11 @@ export default function PersonCreateForm(props) {
           children="Tall"
           value="TALL"
           {...getOverrideProps(overrides, "heightoption2")}
+        ></option>
+        <option
+          children="Giant"
+          value="GIANT"
+          {...getOverrideProps(overrides, "heightoption3")}
         ></option>
       </SelectField>
       <SelectField
@@ -640,6 +598,11 @@ export default function PersonCreateForm(props) {
           children="Red"
           value="RED"
           {...getOverrideProps(overrides, "hairoption4")}
+        ></option>
+        <option
+          children="Bald"
+          value="BALD"
+          {...getOverrideProps(overrides, "hairoption5")}
         ></option>
       </SelectField>
       <SelectField
@@ -878,6 +841,11 @@ export default function PersonCreateForm(props) {
           children="Scruffy"
           value="SCRUFFY"
           {...getOverrideProps(overrides, "dressoption3")}
+        ></option>
+        <option
+          children="Hippy"
+          value="HIPPY"
+          {...getOverrideProps(overrides, "dressoption4")}
         ></option>
       </SelectField>
       <Flex

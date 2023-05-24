@@ -21,6 +21,9 @@ export default function CharacteristicsSelector() {
       <div>
       End of CharacteristicsSelector
       </div>
+      <div>
+        {enumMap}
+      </div>
     
     
     </>

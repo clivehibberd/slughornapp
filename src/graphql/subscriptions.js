@@ -55,6 +55,8 @@ export const onCreatePerson = /* GraphQL */ `
       hair
       facialhair
       ethnicity
+      glasses
+      dress
       createdAt
       updatedAt
     }
@@ -75,6 +77,8 @@ export const onUpdatePerson = /* GraphQL */ `
       hair
       facialhair
       ethnicity
+      glasses
+      dress
       createdAt
       updatedAt
     }
@@ -95,6 +99,8 @@ export const onDeletePerson = /* GraphQL */ `
       hair
       facialhair
       ethnicity
+      glasses
+      dress
       createdAt
       updatedAt
     }

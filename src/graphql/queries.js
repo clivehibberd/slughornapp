@@ -49,6 +49,8 @@ export const getPerson = /* GraphQL */ `
       hair
       facialhair
       ethnicity
+      glasses
+      dress
       createdAt
       updatedAt
     }
@@ -82,15 +84,4 @@ export const listPeople = /* GraphQL */ `
       nextToken
     }
   }
-`;
-
-export const listGenders = /* GraphQL */`
-query listGenders{
- __type (name: "Gender"){
-  name
-  enumValues{
-    name
-  }
- }
-}
 `;

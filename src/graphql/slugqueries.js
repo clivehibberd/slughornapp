@@ -36,7 +36,7 @@ export const filterNotes = /* GraphQL */ `
 `;
 
 export const searchByNameAndExternalId = /* GraphQL */ `
-  query SearchByNameAndExternalId ($name: String!, $externalid: String!){
+  query SearchByNameAndExternalId($name: String!, $externalid: String!) {
     listNotes(
       filter: {
         name: { contains: $name }
@@ -57,12 +57,41 @@ export const searchByNameAndExternalId = /* GraphQL */ `
   }
 `;
 
-export const listEnums  = /* GraphQL */`
-query listEnums($name: String!){
- __type (name: $name){
-  name
-  enumValues{
-    name
+
+
+export const searchPeopleByCriteria = /* GraphQL */ `
+  query searchPeopleByCriteria($gender: String, $agegroup: String) {
+    listPeople(
+      filter: {
+        gender: { eq: $gender }
+        and: 
+        {agegroup: { eq: $agegroup }
+        } 
+      }
+    ) {
+      nextToken
+      items {
+        id
+        firstname
+        lastname
+        externalid
+        gender
+        eyecolor
+        agegroup
+        createdAt
+        updatedAt
+      }
+    }
   }
- }
-}`;
+`;
+
+export const listEnums = /* GraphQL */ `
+  query listEnums($name: String!) {
+    __type(name: $name) {
+      name
+      enumValues {
+        name
+      }
+    }
+  }
+`;

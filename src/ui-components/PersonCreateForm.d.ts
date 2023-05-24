@@ -48,9 +48,9 @@ export declare type PersonCreateFormOverridesProps = {
     firstname?: PrimitiveOverrideProps<TextFieldProps>;
     lastname?: PrimitiveOverrideProps<TextFieldProps>;
     externalid?: PrimitiveOverrideProps<TextFieldProps>;
-    gender?: PrimitiveOverrideProps<SelectFieldProps>;
+    gender?: PrimitiveOverrideProps<TextFieldProps>;
     eyecolor?: PrimitiveOverrideProps<SelectFieldProps>;
-    agegroup?: PrimitiveOverrideProps<SelectFieldProps>;
+    agegroup?: PrimitiveOverrideProps<TextFieldProps>;
     height?: PrimitiveOverrideProps<SelectFieldProps>;
     build?: PrimitiveOverrideProps<SelectFieldProps>;
     hair?: PrimitiveOverrideProps<SelectFieldProps>;

@@ -5,13 +5,23 @@ import SlugApp from "./SlugApp";
 import reportWebVitals from "./reportWebVitals";
 import { Amplify } from "aws-amplify";
 import config from "./aws-exports";
+import {
+  Flex,
+  Heading,
+  View
+} from "@aws-amplify/ui-react";
 import WrapperApp from "./WrapperApp";
+
 Amplify.configure(config);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <SlugApp/>
+    <View>
+    <Heading level={1}>SLUGHORN TEST</Heading>
+    </View>
+     
+    <WrapperApp/>
   </React.StrictMode>
 );
 

@@ -4,7 +4,7 @@ export const ApplicationContext = createContext();
 
 export const ApplicationProvider = (props) => {
     var initialMap = new Map();
-    initialMap.set("Ping", "pong");
+    //initialMap.set("Ping", "pong");
   const [enumMap, setEnumMap] = useState(initialMap);
 
   return (

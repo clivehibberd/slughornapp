@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import {
   Flex,
   Heading,
-  Image,
   Text,
   TextField,
   View,
@@ -42,14 +41,6 @@ const App = ({ signOut }) => {
   async function searchPeople(event) {
     console.log(thevalue.name);
     event.preventDefault();
-    const form = new FormData(event.target);
-    const formData = {
-      gender: form.get("searchgender"),
-      agegroup: form.get("searchagegroup"),
-    };
-    //Validation error of type WrongType: argument 'filter.gender' with value 'ObjectValue{objectFields=[ObjectField{name='gender', value=ObjectValue{objectFields=[ObjectField{name='contains', value=VariableReference{name='gender'}}]}}, ObjectField{name='and', value=ObjectValue{objectFields=[ObjectField{name='agegroup', value=ObjectValue{objectFields=[ObjectField{name='contains', value=VariableReference{name='agegroup'}}]}}]}}]}' contains a field not in 'ModelGenderInput': 'contains' @ 'listPeople'
-    //Validation error of type WrongType: argument 'filter.gender' with value 'ObjectValue{objectFields=[ObjectField{name='gender', value=ObjectValue{objectFields=[ObjectField{name='contains', value=VariableReference{name='gender'}}]}}, ObjectField{name='and', value=ObjectValue{objectFields=[ObjectField{name='agegroup', value=ObjectValue{objectFields=[ObjectField{name='contains', value=VariableReference{name='agegroup'}}]}}]}}]}' contains a field not in 'ModelGenderInput': 'contains' @ 'listPeople'
-    console.log("MAP IS ", enumMap);
     const apiData = await API.graphql({
       query: searchPeopleByCriteria,
       variables: { gender: enumMap.get('Gender'), agegroup: enumMap.get('AgeGroup') },

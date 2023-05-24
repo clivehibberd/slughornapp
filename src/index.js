@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import SlugApp from "./SlugApp";
 import reportWebVitals from "./reportWebVitals";
 import { Amplify } from "aws-amplify";
 import config from "./aws-exports";
 import {
-  Flex,
   Heading,
   View
 } from "@aws-amplify/ui-react";

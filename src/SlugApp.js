@@ -47,6 +47,7 @@ const App = ({ signOut }) => {
       console.log("Filter is ", filter);
       const queryTemplate = DynamicPersonQueryTemplate;
       const queryToExecute = queryTemplate.replace("FILTER", filter);
+      
       const apiData = await API.graphql({
         query: queryToExecute,
       });
@@ -58,27 +59,12 @@ const App = ({ signOut }) => {
         })
       );
       setFilteredPeople(peopleFromAPI);
-    
+      
   }
 
-  async function xsearchPeople(event) {
-    console.log(thevalue.name);
-    event.preventDefault();
-    const apiData = await API.graphql({
-      query: searchPeopleByCriteria,
-      variables: { gender: enumMap.get("Gender"), agegroup: null },
-    });
-    const peopleFromAPI = apiData.data.listPeople.items;
-    console.log(peopleFromAPI.listPeople);
-    await Promise.all(
-      peopleFromAPI.map(async (person) => {
-        console.log(person);
-      })
-    );
-    setFilteredPeople(peopleFromAPI);
-  }
   
-  async function fetchPeople() {
+  async function fetchPeople(event) {
+    event.preventDefault();
     const apiData = await API.graphql({
       query: listPeople,
       variables: { limit: 1000 },
@@ -161,7 +147,10 @@ const App = ({ signOut }) => {
           ))}
         </View>
         <Heading level={2}>All People</Heading>
-        <View margin="3rem 0">
+        <View as="form" margin="3rem 0" onSubmit={fetchPeople}>
+        <Button color="primary" variant="contained" type="submit">
+            SHOW
+          </Button>
           {people.map((person) => (
             <Flex
               key={person.id || person.lastname}
@@ -225,7 +214,7 @@ const App = ({ signOut }) => {
               required
             />
 
-            <Button type="submit" variation="primary">
+            <Button disabled="true" type="submit" variation="primary">
               Create Person
             </Button>
           </Flex>

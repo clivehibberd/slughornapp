@@ -94,9 +94,9 @@ type Person @model @auth(rules: [{ allow: public }]) {
   firstname: String!
   lastname: String!
   externalid: String
-  gender: String
+  gender: Gender
   eyecolor: EyeColor
-  agegroup: String
+  agegroup: AgeGroup
   height: Height
   build: Build
   hair: HairColor

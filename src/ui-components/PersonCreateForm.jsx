@@ -280,10 +280,10 @@ export default function PersonCreateForm(props) {
         hasError={errors.externalid?.hasError}
         {...getOverrideProps(overrides, "externalid")}
       ></TextField>
-      <TextField
+      <SelectField
         label="Gender"
-        isRequired={false}
-        isReadOnly={false}
+        placeholder="Please select an option"
+        isDisabled={false}
         value={gender}
         onChange={(e) => {
           let { value } = e.target;
@@ -315,7 +315,23 @@ export default function PersonCreateForm(props) {
         errorMessage={errors.gender?.errorMessage}
         hasError={errors.gender?.hasError}
         {...getOverrideProps(overrides, "gender")}
-      ></TextField>
+      >
+        <option
+          children="Male"
+          value="MALE"
+          {...getOverrideProps(overrides, "genderoption0")}
+        ></option>
+        <option
+          children="Female"
+          value="FEMALE"
+          {...getOverrideProps(overrides, "genderoption1")}
+        ></option>
+        <option
+          children="Trans"
+          value="TRANS"
+          {...getOverrideProps(overrides, "genderoption2")}
+        ></option>
+      </SelectField>
       <SelectField
         label="Eyecolor"
         placeholder="Please select an option"
@@ -378,10 +394,10 @@ export default function PersonCreateForm(props) {
           {...getOverrideProps(overrides, "eyecoloroption4")}
         ></option>
       </SelectField>
-      <TextField
+      <SelectField
         label="Agegroup"
-        isRequired={false}
-        isReadOnly={false}
+        placeholder="Please select an option"
+        isDisabled={false}
         value={agegroup}
         onChange={(e) => {
           let { value } = e.target;
@@ -413,7 +429,38 @@ export default function PersonCreateForm(props) {
         errorMessage={errors.agegroup?.errorMessage}
         hasError={errors.agegroup?.hasError}
         {...getOverrideProps(overrides, "agegroup")}
-      ></TextField>
+      >
+        <option
+          children="Young"
+          value="YOUNG"
+          {...getOverrideProps(overrides, "agegroupoption0")}
+        ></option>
+        <option
+          children="Thirties"
+          value="THIRTIES"
+          {...getOverrideProps(overrides, "agegroupoption1")}
+        ></option>
+        <option
+          children="Forties"
+          value="FORTIES"
+          {...getOverrideProps(overrides, "agegroupoption2")}
+        ></option>
+        <option
+          children="Fifties"
+          value="FIFTIES"
+          {...getOverrideProps(overrides, "agegroupoption3")}
+        ></option>
+        <option
+          children="Sixties"
+          value="SIXTIES"
+          {...getOverrideProps(overrides, "agegroupoption4")}
+        ></option>
+        <option
+          children="Old"
+          value="OLD"
+          {...getOverrideProps(overrides, "agegroupoption5")}
+        ></option>
+      </SelectField>
       <SelectField
         label="Height"
         placeholder="Please select an option"

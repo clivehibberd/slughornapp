@@ -57,8 +57,6 @@ export const searchByNameAndExternalId = /* GraphQL */ `
   }
 `;
 
-
-
 export const searchPeopleByCriteria = /* GraphQL */ `
   query searchPeopleByCriteria($gender: String, $agegroup: String) {
     listPeople(
@@ -95,3 +93,25 @@ export const listEnums = /* GraphQL */ `
     }
   }
 `;
+
+export const DynamicPersonQueryTemplate = /* GraphQL */ `
+  query demo {
+    listPeople(
+      FILTER      
+    ) {
+      nextToken
+      items {
+        id
+        firstname
+        lastname
+        externalid
+        gender
+        eyecolor
+        agegroup
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+

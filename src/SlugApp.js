@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { API, Storage } from "aws-amplify";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import {
   Flex,
   Heading,
@@ -15,8 +15,11 @@ import {
 import { listPeople } from "./graphql/queries";
 //import { filterNotes } from "./graphql/queries";
 //import { paramFilterNotes } from "./graphql/queries";
-import {listEnums} from "./graphql/slugqueries";
-import { searchPeopleByCriteria } from "./graphql/slugqueries";
+import { listEnums } from "./graphql/slugqueries";
+import {
+  searchPeopleByCriteria,
+  DynamicPersonQueryTemplate,
+} from "./graphql/slugqueries";
 //import { resolvers } from "./graphql/queries";
 import {
   createPerson as createPersonMutation,
@@ -26,24 +29,49 @@ import {
 import thevalue from "./components/EnumRadioSelector";
 import { ApplicationContext } from "./components/applicationcontext";
 import { useContext } from "react";
+import { AndEnumFilterGenerator } from "./graphql/util/filterbuilder";
 
 const App = ({ signOut }) => {
   const [people, setPeople] = useState([]);
   const [filteredPeople, setFilteredPeople] = useState([]);
   const [genders, setGenders] = useState([]);
-  const { enumMap, setEnumMap } = useContext(ApplicationContext );
+  const { enumMap, setEnumMap } = useContext(ApplicationContext);
   useEffect(() => {
     fetchPeople();
     searchPeople();
     getGenders();
-  },[] );
+  }, []);
+  //Validation error of type WrongType: argument 'filter' with value 'ObjectValue{objectFields=[ObjectField{name='name', value=ObjectValue{objectFields=[ObjectField{name='contains', value=StringValue{value='i'}}]}}]}' contains a field not in 'ModelPersonFilterInput': 'name' @ 'listPeople'
+  // Validation error of type VariableTypeMismatch: Variable type 'String' doesn't match expected type 'ModelPersonFilterInput' @ 'listPeople'
+  // Validation error of type VariableTypeMismatch: Variable type 'String!' doesn't match expected type 'ModelPersonFilterInput' @ 'listPeople'
 
   async function searchPeople(event) {
+    event.preventDefault();
+    if (enumMap.size > 0) {
+      const filter = AndEnumFilterGenerator(enumMap);
+      console.log("Filter is ", filter);
+      const queryTemplate = DynamicPersonQueryTemplate;
+      queryTemplate.replace("FILTER", filter);
+      const apiData = await API.graphql({
+        query: queryTemplate,
+      });
+      const peopleFromAPI = apiData.data.listPeople.items;
+      console.log(peopleFromAPI.listPeople);
+      await Promise.all(
+        peopleFromAPI.map(async (person) => {
+          console.log(person);
+        })
+      );
+      setFilteredPeople(peopleFromAPI);
+    }
+  }
+
+  async function xsearchPeople(event) {
     console.log(thevalue.name);
     event.preventDefault();
     const apiData = await API.graphql({
       query: searchPeopleByCriteria,
-      variables: { gender: enumMap.get('Gender'), agegroup: enumMap.get('AgeGroup') },
+      variables: { gender: enumMap.get("Gender"), agegroup: null },
     });
     const peopleFromAPI = apiData.data.listPeople.items;
     console.log(peopleFromAPI.listPeople);
@@ -54,21 +82,20 @@ const App = ({ signOut }) => {
     );
     setFilteredPeople(peopleFromAPI);
   }
-  async function getGenders(){
+  async function getGenders() {
     const apiData = await API.graphql({
       query: listEnums,
-      variables: 'Gender'
+      variables: "Gender",
     });
     const gendersFromSchema = apiData.data.__type.enumValues;
     await Promise.all(
       gendersFromSchema.map(async (value) => {
-        
-        console.log (value.name);
+        console.log(value.name);
       })
     );
     setGenders(gendersFromSchema);
   }
-  
+
   async function fetchPeople() {
     const apiData = await API.graphql({
       query: listPeople,
@@ -83,29 +110,25 @@ const App = ({ signOut }) => {
     await Promise.all(
       peopleFromAPI.map(async (person) => {
         if (person.lastname) {
-          
-          console.log (person.lastname);
+          console.log(person.lastname);
         }
-        
       })
     );
     setPeople(peopleFromAPI);
-    
   }
 
   async function createPerson(event) {
-    
     event.preventDefault();
     const form = new FormData(event.target);
-    
+
     const data = {
-        firstname: "Default",
+      firstname: "Default",
       lastname: form.get("lastname"),
       gender: form.get("gender"),
       agegroup: form.get("agegroup"),
       externalid: form.get("externalid"),
     };
-    
+
     await API.graphql({
       query: createPersonMutation,
       variables: { input: data },
@@ -126,11 +149,9 @@ const App = ({ signOut }) => {
 
   return (
     <View className="App">
-     
-      
       <View as="form" margin="3rem 0" onSubmit={searchPeople}>
-        <Flex direction="row" justifyContent="center">          
-          <Button color='primary' variant="contained"   type="submit" >
+        <Flex direction="row" justifyContent="center">
+          <Button color="primary" variant="contained" type="submit">
             SEARCH
           </Button>
         </Flex>
@@ -145,7 +166,7 @@ const App = ({ signOut }) => {
               justifyContent="center"
               alignItems="center"
             >
-                <Text as="strong" fontWeight={700}>
+              <Text as="strong" fontWeight={700}>
                 {person.id}
               </Text>
               <Text as="strong" fontWeight={700}>
@@ -175,14 +196,14 @@ const App = ({ signOut }) => {
               <Text as="strong" fontWeight={700}>
                 {person.firstname}
               </Text>
-              <Text  as="strong" fontWeight={700}>
+              <Text as="strong" fontWeight={700}>
                 {person.lastname}
               </Text>
               <Text as="strong" fontWeight={700}>
                 {person.gender}
               </Text>
               <Text as="strong" fontWeight={700}>
-               E( {person.externalid})
+                E( {person.externalid})
               </Text>
               <Text as="strong" fontWeight={700}>
                 AGE GROUP: {person.agegroup}
@@ -190,50 +211,49 @@ const App = ({ signOut }) => {
               <Button variation="link" onClick={() => deletePerson(person)}>
                 Delete This Person
               </Button>
-              
             </Flex>
           ))}
         </View>
         <View as="form" margin="3rem 0" onSubmit={createPerson}>
-        <Flex direction="row" justifyContent="center">
-          <TextField
-            name="lastname"
-            placeholder="Person Last Name"
-            label="Person Last Name"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="gender"
-            placeholder="Gender Description"
-            label="Gender Description"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="agegroup"
-            placeholder="Age Group"
-            label="Age Group Label"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="externalid"
-            placeholder="External Reference"
-            label="External Label"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          
-          <Button type="submit" variation="primary">
-            Create Person
-          </Button>
-        </Flex>
-      </View>
+          <Flex direction="row" justifyContent="center">
+            <TextField
+              name="lastname"
+              placeholder="Person Last Name"
+              label="Person Last Name"
+              labelHidden
+              variation="quiet"
+              required
+            />
+            <TextField
+              name="gender"
+              placeholder="Gender Description"
+              label="Gender Description"
+              labelHidden
+              variation="quiet"
+              required
+            />
+            <TextField
+              name="agegroup"
+              placeholder="Age Group"
+              label="Age Group Label"
+              labelHidden
+              variation="quiet"
+              required
+            />
+            <TextField
+              name="externalid"
+              placeholder="External Reference"
+              label="External Label"
+              labelHidden
+              variation="quiet"
+              required
+            />
+
+            <Button type="submit" variation="primary">
+              Create Person
+            </Button>
+          </Flex>
+        </View>
       </View>
       <Button onClick={signOut}>Sign Out</Button>
     </View>

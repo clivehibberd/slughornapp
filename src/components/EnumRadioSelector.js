@@ -4,8 +4,10 @@ import { styled } from "@mui/material/styles";
 import RadioGroup, { useRadioGroup } from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
+import Button from "@mui/material/Button";
 import { useState, useEffect, useReducer } from "react";
 import "../App.css";
+import { View, Flex, Heading, Text, TextField } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { API } from "aws-amplify";
 
@@ -42,36 +44,38 @@ MyFormControlLabel.propTypes = {
  */
 export default function EnumRadioGroup({ enumType, enumMap }) {
   const [enumList, setEnumList] = useState([]);
+
   const savedEnumReducer = (state, action) => {
     // get the book object and the type of action by destructuring
     const { enumType, enumValue, type } = action;
-    //console.log("Current state ", state);
-    console.log("Current state ", enumMap);
+    console.log("state is ");
     if (type === "add") {
-     // state.set(enumType,enumValue.name);
-     enumMap.set(enumType,enumValue.name);
-      //console.log("New state ", state);
-      console.log("New state ", enumMap);
-      //return state;
+      enumMap.set(enumType, enumValue.name);
       return enumMap;
-    } else {
-      console.log("Action does not have a meaning");
+    } else if (type === "clear") {
+      console.log("Clearing the current RadioGroup", enumType);
+      enumMap.delete(enumType);
+      return enumMap;
     }
   };
   const [selectedEnum, setSelectedEnum] = useReducer(
     savedEnumReducer,
     new Map()
   );
-  const add = (enumType, enumValue) => {
-    // setSelectionInContext(enumType,'BNAG');
+  const addNewValue = (enumType, enumValue) => {
     console.log("Adding ", enumType, enumValue);
     setSelectedEnum({ enumType, enumValue, type: "add" });
   };
+
   useEffect(() => {
     getEnums();
   }, []);
 
-  
+  const clearSelection = () => {
+    const enumValue = "";
+    setSelectedEnum({ enumType, enumValue, type: "clear" });
+  };
+
   /**
    * Get the enum list from the GraphQl API and set it in the state
    */
@@ -91,16 +95,22 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
   }
 
   return (
-    <RadioGroup row name="use-radio-group">
-      {enumList.map((value) => (
-        <MyFormControlLabel
-          value={value.name}
-          label={value.name}
-          key={value.name}
-          // control={<Radio onChange={() => setSelectionInContext(enumType,value)} />}
-          control={<Radio onChange={() => add(enumType, value)} />}
-        />
-      ))}
-    </RadioGroup>
+    <View>
+      <Flex direction="row" justifyContent="left">
+        <RadioGroup row name="use-radio-group">
+          {enumList.map((value) => (
+            <MyFormControlLabel
+              value={value.name}
+              label={value.name}
+              key={value.name}
+              control={<Radio onChange={() => addNewValue(enumType, value)} />}
+            />
+          ))}
+        </RadioGroup>
+        <Button type="submit" onClick={() => clearSelection()}>
+          Clear
+        </Button>
+      </Flex>
+    </View>
   );
 }

@@ -34,26 +34,21 @@ import { AndEnumFilterGenerator } from "./graphql/util/filterbuilder";
 const App = ({ signOut }) => {
   const [people, setPeople] = useState([]);
   const [filteredPeople, setFilteredPeople] = useState([]);
-  const [genders, setGenders] = useState([]);
   const { enumMap, setEnumMap } = useContext(ApplicationContext);
   useEffect(() => {
     fetchPeople();
     searchPeople();
-    getGenders();
   }, []);
-  //Validation error of type WrongType: argument 'filter' with value 'ObjectValue{objectFields=[ObjectField{name='name', value=ObjectValue{objectFields=[ObjectField{name='contains', value=StringValue{value='i'}}]}}]}' contains a field not in 'ModelPersonFilterInput': 'name' @ 'listPeople'
-  // Validation error of type VariableTypeMismatch: Variable type 'String' doesn't match expected type 'ModelPersonFilterInput' @ 'listPeople'
-  // Validation error of type VariableTypeMismatch: Variable type 'String!' doesn't match expected type 'ModelPersonFilterInput' @ 'listPeople'
-
-  async function searchPeople(event) {
+  
+  async function searchPeople(event) {   
     event.preventDefault();
-    if (enumMap.size > 0) {
+    
       const filter = AndEnumFilterGenerator(enumMap);
       console.log("Filter is ", filter);
       const queryTemplate = DynamicPersonQueryTemplate;
-      queryTemplate.replace("FILTER", filter);
+      const queryToExecute = queryTemplate.replace("FILTER", filter);
       const apiData = await API.graphql({
-        query: queryTemplate,
+        query: queryToExecute,
       });
       const peopleFromAPI = apiData.data.listPeople.items;
       console.log(peopleFromAPI.listPeople);
@@ -63,7 +58,7 @@ const App = ({ signOut }) => {
         })
       );
       setFilteredPeople(peopleFromAPI);
-    }
+    
   }
 
   async function xsearchPeople(event) {
@@ -82,29 +77,11 @@ const App = ({ signOut }) => {
     );
     setFilteredPeople(peopleFromAPI);
   }
-  async function getGenders() {
-    const apiData = await API.graphql({
-      query: listEnums,
-      variables: "Gender",
-    });
-    const gendersFromSchema = apiData.data.__type.enumValues;
-    await Promise.all(
-      gendersFromSchema.map(async (value) => {
-        console.log(value.name);
-      })
-    );
-    setGenders(gendersFromSchema);
-  }
-
+  
   async function fetchPeople() {
     const apiData = await API.graphql({
       query: listPeople,
       variables: { limit: 1000 },
-      /*    filter: {
-        name: {
-            contains: "AAA Note"
-        }
-    }*/
     });
     const peopleFromAPI = apiData.data.listPeople.items;
     await Promise.all(
@@ -118,7 +95,6 @@ const App = ({ signOut }) => {
   }
 
   async function createPerson(event) {
-    event.preventDefault();
     const form = new FormData(event.target);
 
     const data = {
@@ -157,7 +133,7 @@ const App = ({ signOut }) => {
         </Flex>
       </View>
       <View>
-        <Heading level={2}>Filtered People</Heading>
+        <Heading level={4}>Search Result</Heading>
         <View margin="3rem 0">
           {filteredPeople.map((person) => (
             <Flex

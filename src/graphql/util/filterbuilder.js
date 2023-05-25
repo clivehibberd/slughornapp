@@ -15,7 +15,11 @@
  * @returns 
  */
 export function AndEnumFilterGenerator(map){
-    let result = "filter: {"; 
+    let result="";
+    if (map.size===0){
+        return result;
+    }
+    result = "filter: {"; 
     map.forEach((value, key) => {
         var s="";               
         s = s.concat(key.toLowerCase().concat(":")); // Have age:

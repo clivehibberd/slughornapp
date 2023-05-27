@@ -44,19 +44,23 @@ MyFormControlLabel.propTypes = {
  */
 export default function EnumRadioGroup({ enumType, enumMap }) {
   const [enumList, setEnumList] = useState([]);
-
+  const [radiovalue, setRadioValue]= useState([]);
   const savedEnumReducer = (state, action) => {
     // get the book object and the type of action by destructuring
     const { enumType, enumValue, type } = action;
-    console.log("state is ");
+    console.log("Reducer state is ",state);
     if (type === "add") {
-      enumMap.set(enumType, enumValue.name);
-      return enumMap;
+      console.log("Adding to enumMap" ,enumValue);
+      enumMap.set(enumType, enumValue);
+      
     } else if (type === "clear") {
       console.log("Clearing the current RadioGroup", enumType);
       enumMap.delete(enumType);
-      return enumMap;
+      const element = document.getElementById(enumType);
+      element.checked=false;
+      
     }
+    return enumMap;
   };
   const [selectedEnum, setSelectedEnum] = useReducer(
     savedEnumReducer,
@@ -71,9 +75,24 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
     getEnums();
   }, []);
 
-  const clearSelection = () => {
-    const enumValue = "";
-    setSelectedEnum({ enumType, enumValue, type: "clear" });
+  const updateSelection = (event) => {
+    var type=null;
+    var enumValue = "";
+    if (radiovalue.length === 0){ // If currently unset
+      enumValue= event.target.value;
+      type="add";
+    }else if (radiovalue === event.target.value){ // If its the same, clear the selection
+   type="clear";
+      enumValue = "";
+      event.target.checked=false;
+    }else{
+      type="add";
+      enumValue = event.target.value;
+    }
+    console.log("Updating selection to ", enumValue);
+    setRadioValue(enumValue);
+    setSelectedEnum({ enumType, enumValue, type: type });
+    
   };
 
   /**
@@ -103,13 +122,16 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
               value={value.name}
               label={value.name}
               key={value.name}
-              control={<Radio onChange={() => addNewValue(enumType, value)} />}
+              
+              control={
+              <Radio id={enumType}
+              checked={radiovalue === value.name}
+              onClick={updateSelection}/>
+              }
             />
-          ))}
+          ))
+          }
         </RadioGroup>
-        <Button type="submit" onClick={() => clearSelection()}>
-          Clear
-        </Button>
       </Flex>
     </View>
   );

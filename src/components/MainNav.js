@@ -24,7 +24,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Slughorn Alpha
           </Typography>
-          <Button disabled="true" color="inherit">Login</Button>
+          <Button disabled={true} color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
     </Box>

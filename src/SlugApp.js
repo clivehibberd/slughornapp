@@ -214,7 +214,7 @@ const App = ({ signOut }) => {
               required
             />
 
-            <Button disabled="true" type="submit" variation="primary">
+            <Button disabled={true} type="submit" variation="primary">
               Create Person
             </Button>
           </Flex>

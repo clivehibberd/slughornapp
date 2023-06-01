@@ -10,6 +10,7 @@ type Note @model @auth(rules: [{ allow: public }]) {
   externalid: String
 }
 
+# Keep the colors simple, not easily seen in photos - or up close in low light
 enum EyeColor {
   BLUE
   GREEN
@@ -18,6 +19,7 @@ enum EyeColor {
   HAZEL
 }
 
+# Keep this broad - Do not calculate based on DOB, this data should be a visual estimate of age
 enum AgeGroup {
   YOUNG
   THIRTIES
@@ -27,12 +29,14 @@ enum AgeGroup {
   OLD
 }
 
+# Resisting to be anymore specific than normal or not bloody normal
 enum Gender {
   MALE
   FEMALE
-  TRANS
+  OTHER
 }
 
+# This needs more work - who is to say what is what?
 enum Height {
   SHORT
   AVG
@@ -40,6 +44,7 @@ enum Height {
   GIANT
 }
 
+# Sort of OK here. Im happy with this encompassing most people
 enum Build {
   SKINNY
   SLIM
@@ -49,15 +54,24 @@ enum Build {
   HUGE
 }
 
+# Styles can be restricted as it'll not be of much use for the majority
+enum HairStyle{
+  BALD
+  SHORT
+  BOB
+  SHOULDER
+  LONG
+}
+
+# Sort of OK here. No point is agonising over specific colors
 enum HairColor {
   BLONDE
   BROWN
   BLACK
   GREY
   RED
-  BALD
 }
-
+# This is OK. Not fussed at all
 enum FacialHair {
   NONE
   BEARD
@@ -65,22 +79,24 @@ enum FacialHair {
   GOATEE
 }
 
+# OK ,so this is a minefield...Ask Liberty for what we need here
+# I dont care what they're named, but I need to keep it dont to 6 max
 enum Ethnicity {
   WHITE
-  AFROCARR
+  BLACK
   ASIAN
   ORIENTAL
   AFRICAN
-  SEASIAN
+  APAC
 }
 
+# Interesting criteria - Really needs to be a Y/N option 
 enum Glasses {
-  NONE
-  WIRE
-  HEAVY
-  FANCY
+  YES
+  NO
 }
 
+# This criteria will only pull out the excpetions. SL or CORP will cover most people I guess
 enum Dress {
   CORPORATE
   SLICK
@@ -89,19 +105,42 @@ enum Dress {
   HIPPY
 }
 
+# We need to differentiate between the houses (and seperate datasets for MPs, Lords, MLAs MSPs etc.
+enum PersonType{
+  MP
+  LORD
+  MSP
+  MLA
+  MWA
+}
+
+# Keep the list small
+enum Party{
+  TORY
+  LABOUR
+  LIBDEM
+  OTHER
+}
+
 type Person @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  firstname: String!
-  lastname: String!
-  externalid: String
+  first_name: String
+  last_name: String
+  person_id: String
+  external_id: String
   gender: Gender
+  party: Party
   eyecolor: EyeColor
   agegroup: AgeGroup
   height: Height
   build: Build
   hair: HairColor
+  hairstyle: HairStyle
   facialhair: FacialHair
   ethnicity: Ethnicity
   glasses: Glasses
   dress: Dress
+  persontype: PersonType
+  image: String
+  uri:String
 }

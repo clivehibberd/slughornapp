@@ -44,21 +44,19 @@ MyFormControlLabel.propTypes = {
  */
 export default function EnumRadioGroup({ enumType, enumMap }) {
   const [enumList, setEnumList] = useState([]);
-  const [radiovalue, setRadioValue]= useState([]);
+  const [radiovalue, setRadioValue] = useState([]);
   const savedEnumReducer = (state, action) => {
     // get the book object and the type of action by destructuring
     const { enumType, enumValue, type } = action;
-    console.log("Reducer state is ",state);
+    console.log("Reducer state is ", state);
     if (type === "add") {
-      console.log("Adding to enumMap" ,enumValue);
+      console.log("Adding to enumMap", enumValue);
       enumMap.set(enumType, enumValue);
-      
     } else if (type === "clear") {
       console.log("Clearing the current RadioGroup", enumType);
       enumMap.delete(enumType);
       const element = document.getElementById(enumType);
-      element.checked=false;
-      
+      element.checked = false;
     }
     return enumMap;
   };
@@ -76,23 +74,24 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
   }, []);
 
   const updateSelection = (event) => {
-    var type=null;
+    var type = null;
     var enumValue = "";
-    if (radiovalue.length === 0){ // If currently unset
-      enumValue= event.target.value;
-      type="add";
-    }else if (radiovalue === event.target.value){ // If its the same, clear the selection
-   type="clear";
+    if (radiovalue.length === 0) {
+      // If currently unset
+      enumValue = event.target.value;
+      type = "add";
+    } else if (radiovalue === event.target.value) {
+      // If its the same, clear the selection
+      type = "clear";
       enumValue = "";
-      event.target.checked=false;
-    }else{
-      type="add";
+      event.target.checked = false;
+    } else {
+      type = "add";
       enumValue = event.target.value;
     }
     console.log("Updating selection to ", enumValue);
     setRadioValue(enumValue);
     setSelectedEnum({ enumType, enumValue, type: type });
-    
   };
 
   /**
@@ -122,15 +121,15 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
               value={value.name}
               label={value.name}
               key={value.name}
-              
               control={
-              <Radio id={enumType}
-              checked={radiovalue === value.name}
-              onClick={updateSelection}/>
+                <Radio
+                  id={enumType}
+                  checked={radiovalue === value.name}
+                  onClick={updateSelection}
+                />
               }
             />
-          ))
-          }
+          ))}
         </RadioGroup>
       </Flex>
     </View>

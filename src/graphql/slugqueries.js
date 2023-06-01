@@ -101,15 +101,27 @@ export const DynamicPersonQueryTemplate = /* GraphQL */ `
     ) {
       nextToken
       items {
-        id
-        firstname
-        lastname
-        externalid
-        gender
-        eyecolor
-        agegroup
-        createdAt
-        updatedAt
+        first_name
+      last_name
+      person_id
+      external_id
+      gender
+      party
+      eyecolor
+      agegroup
+      height
+      build
+      hair
+      hairstyle
+      facialhair
+      ethnicity
+      glasses
+      dress
+      persontype
+      image
+      uri
+      createdAt
+      updatedAt
       }
     }
   }

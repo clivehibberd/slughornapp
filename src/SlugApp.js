@@ -30,18 +30,24 @@ import thevalue from "./components/EnumRadioSelector";
 import { ApplicationContext } from "./components/applicationcontext";
 import { useContext } from "react";
 import { AndEnumFilterGenerator } from "./graphql/util/filterbuilder";
+import mpsToImport from "./dummy/6mps.json";
 
 const App = ({ signOut }) => {
   const [people, setPeople] = useState([]);
   const [filteredPeople, setFilteredPeople] = useState([]);
   const { enumMap, setEnumMap } = useContext(ApplicationContext);
   useEffect(() => {
+    
+    //console.log(data);
     fetchPeople();
     searchPeople();
   }, []);
   
-  async function searchPeople(event) {   
-    event.preventDefault();
+  async function searchPeople(event) {  
+    
+   try{ event.preventDefault();
+   }catch{
+   }
     
       const filter = AndEnumFilterGenerator(enumMap);
       console.log("Filter is ", filter);
@@ -52,10 +58,10 @@ const App = ({ signOut }) => {
         query: queryToExecute,
       });
       const peopleFromAPI = apiData.data.listPeople.items;
-      console.log(peopleFromAPI.listPeople);
+//      console.log(peopleFromAPI.listPeople);
       await Promise.all(
         peopleFromAPI.map(async (person) => {
-          console.log(person);
+//          console.log(person);
         })
       );
       setFilteredPeople(peopleFromAPI);
@@ -64,7 +70,9 @@ const App = ({ signOut }) => {
 
   
   async function fetchPeople(event) {
-    event.preventDefault();
+    try{ event.preventDefault();
+   }catch{   
+   }
     const apiData = await API.graphql({
       query: listPeople,
       variables: { limit: 1000 },
@@ -73,7 +81,7 @@ const App = ({ signOut }) => {
     await Promise.all(
       peopleFromAPI.map(async (person) => {
         if (person.lastname) {
-          console.log(person.lastname);
+//          console.log(person.lastname);
         }
       })
     );
@@ -109,6 +117,24 @@ const App = ({ signOut }) => {
     });
   }
 
+  async function importMps (event){
+    
+    await Promise.all(
+      mpsToImport.map(async (mp) => {
+        console.log("MP ",mp);
+        
+        await API.graphql({
+          query: createPersonMutation,
+          variables: { input: mp },
+        });
+        fetchPeople();
+    event.target.reset();
+
+      })
+    );
+    
+  }
+
   return (
     <View className="App">
       <View as="form" margin="3rem 0" onSubmit={searchPeople}>
@@ -129,19 +155,40 @@ const App = ({ signOut }) => {
               alignItems="center"
             >
               <Text as="strong" fontWeight={700}>
-                {person.id}
+              FN  {person.first_name}
               </Text>
               <Text as="strong" fontWeight={700}>
-                {person.lastname}
+              LN  {person.last_name}
               </Text>
               <Text as="strong" fontWeight={700}>
-                {person.externalid}
+              GE  {person.gender}
               </Text>
               <Text as="strong" fontWeight={700}>
-                {person.agegroup}
+             PR   {person.party}
               </Text>
               <Text as="strong" fontWeight={700}>
-                {person.gender}
+              ET  {person.ethinicity}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              GL  {person.glasses}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              DR  {person.dress}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+                EXT ( {person.external_id})
+              </Text>
+              <Text as="strong" fontWeight={700}>
+                AGE GROUP: {person.agegroup}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+                {person.eyecolor}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              BU {person.build}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              HI  {person.height}
               </Text>
             </Flex>
           ))}
@@ -149,29 +196,50 @@ const App = ({ signOut }) => {
         <Heading level={2}>All People</Heading>
         <View as="form" margin="3rem 0" onSubmit={fetchPeople}>
         <Button color="primary" variant="contained" type="submit">
-            SHOW
+            SHOW ALL
           </Button>
           {people.map((person) => (
             <Flex
-              key={person.id || person.lastname}
+              key={person.id || person.last_name}
               direction="row"
               justifyContent="center"
               alignItems="center"
             >
               <Text as="strong" fontWeight={700}>
-                {person.firstname}
+              FN  {person.first_name}
               </Text>
               <Text as="strong" fontWeight={700}>
-                {person.lastname}
+              LN  {person.last_name}
               </Text>
               <Text as="strong" fontWeight={700}>
-                {person.gender}
+              GE  {person.gender}
               </Text>
               <Text as="strong" fontWeight={700}>
-                E( {person.externalid})
+             PR   {person.party}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              ET  {person.ethinicity}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              GL  {person.glasses}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              DR  {person.dress}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+                EXT ( {person.external_id})
               </Text>
               <Text as="strong" fontWeight={700}>
                 AGE GROUP: {person.agegroup}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+                {person.eyecolor}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              BU {person.build}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+              HI  {person.height}
               </Text>
               <Button variation="link" onClick={() => deletePerson(person)}>
                 Delete This Person
@@ -182,7 +250,7 @@ const App = ({ signOut }) => {
         <View as="form" margin="3rem 0" onSubmit={createPerson}>
           <Flex direction="row" justifyContent="center">
             <TextField
-              name="lastname"
+              name="last_name"
               placeholder="Person Last Name"
               label="Person Last Name"
               labelHidden
@@ -206,7 +274,7 @@ const App = ({ signOut }) => {
               required
             />
             <TextField
-              name="externalid"
+              name="external_id"
               placeholder="External Reference"
               label="External Label"
               labelHidden
@@ -219,6 +287,20 @@ const App = ({ signOut }) => {
             </Button>
           </Flex>
         </View>
+      </View>
+      <View as="form" onSubmit={importMps}>
+      
+      <TextField
+              name="filetoload"
+              placeholder="Filename and path"
+              label="Upload File"
+              
+              variation="quiet"
+              
+            />
+            <Button type="submit" variation="secondary" >
+              Import MPs 
+            </Button>
       </View>
       <Button onClick={signOut}>Sign Out</Button>
     </View>

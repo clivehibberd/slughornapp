@@ -44,19 +44,25 @@ export const onCreatePerson = /* GraphQL */ `
   subscription OnCreatePerson($filter: ModelSubscriptionPersonFilterInput) {
     onCreatePerson(filter: $filter) {
       id
-      firstname
-      lastname
-      externalid
+      first_name
+      last_name
+      person_id
+      external_id
       gender
+      party
       eyecolor
       agegroup
       height
       build
       hair
+      hairstyle
       facialhair
       ethnicity
       glasses
       dress
+      persontype
+      image
+      uri
       createdAt
       updatedAt
     }
@@ -66,19 +72,25 @@ export const onUpdatePerson = /* GraphQL */ `
   subscription OnUpdatePerson($filter: ModelSubscriptionPersonFilterInput) {
     onUpdatePerson(filter: $filter) {
       id
-      firstname
-      lastname
-      externalid
+      first_name
+      last_name
+      person_id
+      external_id
       gender
+      party
       eyecolor
       agegroup
       height
       build
       hair
+      hairstyle
       facialhair
       ethnicity
       glasses
       dress
+      persontype
+      image
+      uri
       createdAt
       updatedAt
     }
@@ -88,19 +100,25 @@ export const onDeletePerson = /* GraphQL */ `
   subscription OnDeletePerson($filter: ModelSubscriptionPersonFilterInput) {
     onDeletePerson(filter: $filter) {
       id
-      firstname
-      lastname
-      externalid
+      first_name
+      last_name
+      person_id
+      external_id
       gender
+      party
       eyecolor
       agegroup
       height
       build
       hair
+      hairstyle
       facialhair
       ethnicity
       glasses
       dress
+      persontype
+      image
+      uri
       createdAt
       updatedAt
     }

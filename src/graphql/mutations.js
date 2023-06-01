@@ -56,19 +56,25 @@ export const createPerson = /* GraphQL */ `
   ) {
     createPerson(input: $input, condition: $condition) {
       id
-      firstname
-      lastname
-      externalid
+      first_name
+      last_name
+      person_id
+      external_id
       gender
+      party
       eyecolor
       agegroup
       height
       build
       hair
+      hairstyle
       facialhair
       ethnicity
       glasses
       dress
+      persontype
+      image
+      uri
       createdAt
       updatedAt
     }
@@ -81,19 +87,25 @@ export const updatePerson = /* GraphQL */ `
   ) {
     updatePerson(input: $input, condition: $condition) {
       id
-      firstname
-      lastname
-      externalid
+      first_name
+      last_name
+      person_id
+      external_id
       gender
+      party
       eyecolor
       agegroup
       height
       build
       hair
+      hairstyle
       facialhair
       ethnicity
       glasses
       dress
+      persontype
+      image
+      uri
       createdAt
       updatedAt
     }
@@ -106,19 +118,25 @@ export const deletePerson = /* GraphQL */ `
   ) {
     deletePerson(input: $input, condition: $condition) {
       id
-      firstname
-      lastname
-      externalid
+      first_name
+      last_name
+      person_id
+      external_id
       gender
+      party
       eyecolor
       agegroup
       height
       build
       hair
+      hairstyle
       facialhair
       ethnicity
       glasses
       dress
+      persontype
+      image
+      uri
       createdAt
       updatedAt
     }

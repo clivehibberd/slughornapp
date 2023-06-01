@@ -167,11 +167,9 @@ const App = ({ signOut }) => {
             </Flex>
           ))}
         </View>
-        <Heading level={2}>All People</Heading>
+        <Heading level={5}>All MPs</Heading>
         <View as="form" margin="3rem 0" onSubmit={fetchPeople}>
-          <Button color="primary" variant="contained" type="submit">
-            SHOW ALL
-          </Button>
+          
           {people.map((person) => (
             <Flex
               key={person.id || person.last_name}

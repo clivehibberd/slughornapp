@@ -151,7 +151,11 @@ const App = ({ signOut }) => {
               justifyContent="center"
               alignItems="center"
             >
-              <Link href={person.uri} target="_blank" rel="noreferrer">{person.external_id}</Link>
+              <Link href={person.uri} target="_blank" 
+              
+              rel="noreferrer">
+                <img alt = {person.external_id} src={person.image} style={{width: 50 + 'px'}}>
+                  </img></Link>
               <Text>{person.first_name}</Text>
               <Text>{person.last_name}</Text>
               <Text>{person.gender}</Text>

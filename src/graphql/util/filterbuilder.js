@@ -15,7 +15,7 @@
  * @returns 
  */
 export function AndEnumFilterGenerator(map){
-    let result="";
+    let result="filter: {}";
     if (map.size===0){
         return result;
     }
@@ -25,8 +25,7 @@ export function AndEnumFilterGenerator(map){
         s = s.concat(key.toLowerCase().concat(":")); // Have age:
         s = s.concat("{ eq:",value,"}");
         result = result.concat(s);
-        result = result.concat(",");
-       
+        result = result.concat(",");       
     });
     result =result.concat("}");
     return result;

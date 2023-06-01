@@ -48,7 +48,7 @@ export const getPerson = /* GraphQL */ `
       agegroup
       height
       build
-      hair
+      haircolor
       hairstyle
       facialhair
       ethnicity
@@ -57,6 +57,7 @@ export const getPerson = /* GraphQL */ `
       persontype
       image
       uri
+      constituency
       createdAt
       updatedAt
     }
@@ -81,7 +82,7 @@ export const listPeople = /* GraphQL */ `
         agegroup
         height
         build
-        hair
+        haircolor
         hairstyle
         facialhair
         ethnicity
@@ -90,6 +91,7 @@ export const listPeople = /* GraphQL */ `
         persontype
         image
         uri
+        constituency
         createdAt
         updatedAt
       }

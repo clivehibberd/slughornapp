@@ -66,7 +66,7 @@ export const createPerson = /* GraphQL */ `
       agegroup
       height
       build
-      hair
+      haircolor
       hairstyle
       facialhair
       ethnicity
@@ -75,6 +75,7 @@ export const createPerson = /* GraphQL */ `
       persontype
       image
       uri
+      constituency
       createdAt
       updatedAt
     }
@@ -97,7 +98,7 @@ export const updatePerson = /* GraphQL */ `
       agegroup
       height
       build
-      hair
+      haircolor
       hairstyle
       facialhair
       ethnicity
@@ -106,6 +107,7 @@ export const updatePerson = /* GraphQL */ `
       persontype
       image
       uri
+      constituency
       createdAt
       updatedAt
     }
@@ -128,7 +130,7 @@ export const deletePerson = /* GraphQL */ `
       agegroup
       height
       build
-      hair
+      haircolor
       hairstyle
       facialhair
       ethnicity
@@ -137,6 +139,7 @@ export const deletePerson = /* GraphQL */ `
       persontype
       image
       uri
+      constituency
       createdAt
       updatedAt
     }

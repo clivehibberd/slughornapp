@@ -26,7 +26,7 @@ enum AgeGroup {
   FORTIES
   FIFTIES
   SIXTIES
-  OLD
+  SEVENTYPLUS
 }
 
 # Resisting to be anymore specific than normal or not bloody normal
@@ -116,9 +116,11 @@ enum PersonType{
 
 # Keep the list small
 enum Party{
-  TORY
+  CONSERVATIVE
   LABOUR
   LIBDEM
+  SNP
+  PLAIDCYMRU
   OTHER
 }
 
@@ -134,7 +136,7 @@ type Person @model @auth(rules: [{ allow: public }]) {
   agegroup: AgeGroup
   height: Height
   build: Build
-  hair: HairColor
+  haircolor: HairColor
   hairstyle: HairStyle
   facialhair: FacialHair
   ethnicity: Ethnicity
@@ -143,4 +145,5 @@ type Person @model @auth(rules: [{ allow: public }]) {
   persontype: PersonType
   image: String
   uri:String
+  constituency:String
 }

@@ -5,6 +5,7 @@ import RadioGroup, { useRadioGroup } from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import Button from "@mui/material/Button";
+import FormLabel from "@mui/material/FormLabel";
 import { useState, useEffect, useReducer } from "react";
 import "../App.css";
 import { View, Flex, Heading, Text, TextField } from "@aws-amplify/ui-react";
@@ -115,6 +116,7 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
   return (
     <View>
       <Flex direction="row" justifyContent="left">
+        <FormLabel id="enumType" >{enumType}</FormLabel>
         <RadioGroup row name="use-radio-group">
           {enumList.map((value) => (
             <MyFormControlLabel

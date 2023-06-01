@@ -101,6 +101,7 @@ export const DynamicPersonQueryTemplate = /* GraphQL */ `
     ) {
       nextToken
       items {
+        id
         first_name
       last_name
       person_id
@@ -111,7 +112,7 @@ export const DynamicPersonQueryTemplate = /* GraphQL */ `
       agegroup
       height
       build
-      hair
+      haircolor
       hairstyle
       facialhair
       ethnicity

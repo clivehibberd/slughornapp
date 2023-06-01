@@ -37,42 +37,37 @@ const App = ({ signOut }) => {
   const [filteredPeople, setFilteredPeople] = useState([]);
   const { enumMap, setEnumMap } = useContext(ApplicationContext);
   useEffect(() => {
-    
     //console.log(data);
     fetchPeople();
     searchPeople();
   }, []);
-  
-  async function searchPeople(event) {  
-    
-   try{ event.preventDefault();
-   }catch{
-   }
-    
-      const filter = AndEnumFilterGenerator(enumMap);
-      console.log("Filter is ", filter);
-      const queryTemplate = DynamicPersonQueryTemplate;
-      const queryToExecute = queryTemplate.replace("FILTER", filter);
-      
-      const apiData = await API.graphql({
-        query: queryToExecute,
-      });
-      const peopleFromAPI = apiData.data.listPeople.items;
-//      console.log(peopleFromAPI.listPeople);
-      await Promise.all(
-        peopleFromAPI.map(async (person) => {
-//          console.log(person);
-        })
-      );
-      setFilteredPeople(peopleFromAPI);
-      
+
+  async function searchPeople(event) {
+    try {
+      event.preventDefault();
+    } catch {}
+    const filter = AndEnumFilterGenerator(enumMap);
+    console.log("Filter is ", filter);
+    const queryTemplate = DynamicPersonQueryTemplate;
+    const queryToExecute = queryTemplate.replace("FILTER", filter);
+
+    const apiData = await API.graphql({
+      query: queryToExecute,
+    });
+    const peopleFromAPI = apiData.data.listPeople.items;
+    //      console.log(peopleFromAPI.listPeople);
+    await Promise.all(
+      peopleFromAPI.map(async (person) => {
+        //          console.log(person);
+      })
+    );
+    setFilteredPeople(peopleFromAPI);
   }
 
-  
   async function fetchPeople(event) {
-    try{ event.preventDefault();
-   }catch{   
-   }
+    try {
+      event.preventDefault();
+    } catch {}
     const apiData = await API.graphql({
       query: listPeople,
       variables: { limit: 1000 },
@@ -81,7 +76,7 @@ const App = ({ signOut }) => {
     await Promise.all(
       peopleFromAPI.map(async (person) => {
         if (person.lastname) {
-//          console.log(person.lastname);
+          //          console.log(person.lastname);
         }
       })
     );
@@ -92,13 +87,14 @@ const App = ({ signOut }) => {
     const form = new FormData(event.target);
 
     const data = {
-      firstname: "Default",
-      lastname: form.get("lastname"),
+      first_name: form.get("first_name"),
+      last_name: form.get("last_name"),
       gender: form.get("gender"),
       agegroup: form.get("agegroup"),
-      externalid: form.get("externalid"),
+      external_id: form.get("external_id"),
+      party: form.get("party"),
+      ethnicity: form.get("ethnicity"),
     };
-
     await API.graphql({
       query: createPersonMutation,
       variables: { input: data },
@@ -117,22 +113,22 @@ const App = ({ signOut }) => {
     });
   }
 
-  async function importMps (event){
-    
+  async function importMps(event) {
+    try {
+      event.preventDefault();
+    } catch {}
     await Promise.all(
       mpsToImport.map(async (mp) => {
-        console.log("MP ",mp);
-        
+        console.log("MP ", mp);
+
         await API.graphql({
           query: createPersonMutation,
           variables: { input: mp },
         });
         fetchPeople();
-    event.target.reset();
-
+        event.target.reset();
       })
     );
-    
   }
 
   return (
@@ -149,53 +145,30 @@ const App = ({ signOut }) => {
         <View margin="3rem 0">
           {filteredPeople.map((person) => (
             <Flex
-              key={person.id || person.lastname}
+              key={person.id}
               direction="row"
               justifyContent="center"
               alignItems="center"
             >
-              <Text as="strong" fontWeight={700}>
-              FN  {person.first_name}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              LN  {person.last_name}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              GE  {person.gender}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-             PR   {person.party}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              ET  {person.ethinicity}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              GL  {person.glasses}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              DR  {person.dress}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-                EXT ( {person.external_id})
-              </Text>
-              <Text as="strong" fontWeight={700}>
-                AGE GROUP: {person.agegroup}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-                {person.eyecolor}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              BU {person.build}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              HI  {person.height}
-              </Text>
+              <Text>{person.first_name}</Text>
+              <Text>{person.last_name}</Text>
+              <Text>{person.gender}</Text>
+              <Text>{person.party}</Text>
+              <Text>{person.ethnicity}</Text>
+              <Text>{person.glasses}</Text>
+              <Text>{person.dress}</Text>
+              <Text>( {person.external_id})</Text>
+              <Text>{person.agegroup}</Text>
+              <Text>{person.eyecolor}</Text>
+              <Text>{person.build}</Text>
+              <Text>{person.height}</Text>
+              <Text>{person.id}</Text>
             </Flex>
           ))}
         </View>
         <Heading level={2}>All People</Heading>
         <View as="form" margin="3rem 0" onSubmit={fetchPeople}>
-        <Button color="primary" variant="contained" type="submit">
+          <Button color="primary" variant="contained" type="submit">
             SHOW ALL
           </Button>
           {people.map((person) => (
@@ -205,53 +178,38 @@ const App = ({ signOut }) => {
               justifyContent="center"
               alignItems="center"
             >
-              <Text as="strong" fontWeight={700}>
-              FN  {person.first_name}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              LN  {person.last_name}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              GE  {person.gender}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-             PR   {person.party}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              ET  {person.ethinicity}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              GL  {person.glasses}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              DR  {person.dress}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-                EXT ( {person.external_id})
-              </Text>
-              <Text as="strong" fontWeight={700}>
-                AGE GROUP: {person.agegroup}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-                {person.eyecolor}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              BU {person.build}
-              </Text>
-              <Text as="strong" fontWeight={700}>
-              HI  {person.height}
-              </Text>
+              <Text>FN {person.first_name}</Text>
+              <Text>LN {person.last_name}</Text>
+              <Text>GE {person.gender}</Text>
+              <Text>PR {person.party}</Text>
+              <Text>ET {person.ethnicity}</Text>
+              <Text>GL {person.glasses}</Text>
+              <Text>DR {person.dress}</Text>
+              <Text>EXT ( {person.external_id})</Text>
+              <Text>AGE: {person.agegroup}</Text>
+              <Text>{person.eyecolor}</Text>
+              <Text>BU {person.build}</Text>
+              <Text>HI {person.height}</Text>
               <Button variation="link" onClick={() => deletePerson(person)}>
-                Delete This Person
+                Delete
               </Button>
             </Flex>
           ))}
         </View>
-        <View as="form" margin="3rem 0" onSubmit={createPerson}>
+        <View hidden={true}
+        as="form" margin="3rem 0" onSubmit={createPerson}>
           <Flex direction="row" justifyContent="center">
             <TextField
+              name="first_name"
+              placeholder="First Name"
+              label="First Name"
+              labelHidden
+              variation="quiet"
+              required
+            />
+            <TextField
               name="last_name"
-              placeholder="Person Last Name"
+              placeholder="Last Name"
               label="Person Last Name"
               labelHidden
               variation="quiet"
@@ -259,8 +217,8 @@ const App = ({ signOut }) => {
             />
             <TextField
               name="gender"
-              placeholder="Gender Description"
-              label="Gender Description"
+              placeholder="Gender"
+              label="Gender"
               labelHidden
               variation="quiet"
               required
@@ -268,7 +226,7 @@ const App = ({ signOut }) => {
             <TextField
               name="agegroup"
               placeholder="Age Group"
-              label="Age Group Label"
+              label="Age Group"
               labelHidden
               variation="quiet"
               required
@@ -276,31 +234,38 @@ const App = ({ signOut }) => {
             <TextField
               name="external_id"
               placeholder="External Reference"
-              label="External Label"
+              label="External Ref"
+              labelHidden
+              variation="quiet"
+              required
+            />
+            <TextField
+              name="party"
+              placeholder="Party"
+              label="Party"
+              labelHidden
+              variation="quiet"
+              required
+            />
+            <TextField
+              name="ethnicity"
+              placeholder="Ethnicity"
+              label="Ethnicity"
               labelHidden
               variation="quiet"
               required
             />
 
-            <Button disabled={true} type="submit" variation="primary">
+            <Button type="submit" variation="primary">
               Create Person
             </Button>
           </Flex>
         </View>
       </View>
       <View as="form" onSubmit={importMps}>
-      
-      <TextField
-              name="filetoload"
-              placeholder="Filename and path"
-              label="Upload File"
-              
-              variation="quiet"
-              
-            />
-            <Button type="submit" variation="secondary" >
-              Import MPs 
-            </Button>
+        <Button disabled="{true}" type="submit" variation="secondary">
+          Import MPs
+        </Button>
       </View>
       <Button onClick={signOut}>Sign Out</Button>
     </View>

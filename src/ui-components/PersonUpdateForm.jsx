@@ -40,7 +40,7 @@ export default function PersonUpdateForm(props) {
     agegroup: "",
     height: "",
     build: "",
-    hair: "",
+    haircolor: "",
     hairstyle: "",
     facialhair: "",
     ethnicity: "",
@@ -49,6 +49,7 @@ export default function PersonUpdateForm(props) {
     persontype: "",
     image: "",
     uri: "",
+    constituency: "",
   };
   const [first_name, setFirst_name] = React.useState(initialValues.first_name);
   const [last_name, setLast_name] = React.useState(initialValues.last_name);
@@ -62,7 +63,7 @@ export default function PersonUpdateForm(props) {
   const [agegroup, setAgegroup] = React.useState(initialValues.agegroup);
   const [height, setHeight] = React.useState(initialValues.height);
   const [build, setBuild] = React.useState(initialValues.build);
-  const [hair, setHair] = React.useState(initialValues.hair);
+  const [haircolor, setHaircolor] = React.useState(initialValues.haircolor);
   const [hairstyle, setHairstyle] = React.useState(initialValues.hairstyle);
   const [facialhair, setFacialhair] = React.useState(initialValues.facialhair);
   const [ethnicity, setEthnicity] = React.useState(initialValues.ethnicity);
@@ -71,6 +72,9 @@ export default function PersonUpdateForm(props) {
   const [persontype, setPersontype] = React.useState(initialValues.persontype);
   const [image, setImage] = React.useState(initialValues.image);
   const [uri, setUri] = React.useState(initialValues.uri);
+  const [constituency, setConstituency] = React.useState(
+    initialValues.constituency
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = personRecord
@@ -86,7 +90,7 @@ export default function PersonUpdateForm(props) {
     setAgegroup(cleanValues.agegroup);
     setHeight(cleanValues.height);
     setBuild(cleanValues.build);
-    setHair(cleanValues.hair);
+    setHaircolor(cleanValues.haircolor);
     setHairstyle(cleanValues.hairstyle);
     setFacialhair(cleanValues.facialhair);
     setEthnicity(cleanValues.ethnicity);
@@ -95,6 +99,7 @@ export default function PersonUpdateForm(props) {
     setPersontype(cleanValues.persontype);
     setImage(cleanValues.image);
     setUri(cleanValues.uri);
+    setConstituency(cleanValues.constituency);
     setErrors({});
   };
   const [personRecord, setPersonRecord] = React.useState(personModelProp);
@@ -119,7 +124,7 @@ export default function PersonUpdateForm(props) {
     agegroup: [],
     height: [],
     build: [],
-    hair: [],
+    haircolor: [],
     hairstyle: [],
     facialhair: [],
     ethnicity: [],
@@ -128,6 +133,7 @@ export default function PersonUpdateForm(props) {
     persontype: [],
     image: [],
     uri: [],
+    constituency: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -165,7 +171,7 @@ export default function PersonUpdateForm(props) {
           agegroup,
           height,
           build,
-          hair,
+          haircolor,
           hairstyle,
           facialhair,
           ethnicity,
@@ -174,6 +180,7 @@ export default function PersonUpdateForm(props) {
           persontype,
           image,
           uri,
+          constituency,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -239,7 +246,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -248,6 +255,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.first_name ?? value;
@@ -281,7 +289,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -290,6 +298,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.last_name ?? value;
@@ -323,7 +332,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -332,6 +341,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.person_id ?? value;
@@ -365,7 +375,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -374,6 +384,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.external_id ?? value;
@@ -407,7 +418,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -416,6 +427,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.gender ?? value;
@@ -465,7 +477,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -474,6 +486,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.party ?? value;
@@ -489,8 +502,8 @@ export default function PersonUpdateForm(props) {
         {...getOverrideProps(overrides, "party")}
       >
         <option
-          children="Tory"
-          value="TORY"
+          children="Conservative"
+          value="CONSERVATIVE"
           {...getOverrideProps(overrides, "partyoption0")}
         ></option>
         <option
@@ -504,9 +517,19 @@ export default function PersonUpdateForm(props) {
           {...getOverrideProps(overrides, "partyoption2")}
         ></option>
         <option
+          children="Snp"
+          value="SNP"
+          {...getOverrideProps(overrides, "partyoption3")}
+        ></option>
+        <option
+          children="Plaidcymru"
+          value="PLAIDCYMRU"
+          {...getOverrideProps(overrides, "partyoption4")}
+        ></option>
+        <option
           children="Other"
           value="OTHER"
-          {...getOverrideProps(overrides, "partyoption3")}
+          {...getOverrideProps(overrides, "partyoption5")}
         ></option>
       </SelectField>
       <SelectField
@@ -528,7 +551,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -537,6 +560,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.eyecolor ?? value;
@@ -596,7 +620,7 @@ export default function PersonUpdateForm(props) {
               agegroup: value,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -605,6 +629,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.agegroup ?? value;
@@ -645,8 +670,8 @@ export default function PersonUpdateForm(props) {
           {...getOverrideProps(overrides, "agegroupoption4")}
         ></option>
         <option
-          children="Old"
-          value="OLD"
+          children="Seventyplus"
+          value="SEVENTYPLUS"
           {...getOverrideProps(overrides, "agegroupoption5")}
         ></option>
       </SelectField>
@@ -669,7 +694,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height: value,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -678,6 +703,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.height ?? value;
@@ -732,7 +758,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build: value,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -741,6 +767,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.build ?? value;
@@ -787,10 +814,10 @@ export default function PersonUpdateForm(props) {
         ></option>
       </SelectField>
       <SelectField
-        label="Hair"
+        label="Haircolor"
         placeholder="Please select an option"
         isDisabled={false}
-        value={hair}
+        value={haircolor}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -805,7 +832,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair: value,
+              haircolor: value,
               hairstyle,
               facialhair,
               ethnicity,
@@ -814,44 +841,45 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
-            value = result?.hair ?? value;
+            value = result?.haircolor ?? value;
           }
-          if (errors.hair?.hasError) {
-            runValidationTasks("hair", value);
+          if (errors.haircolor?.hasError) {
+            runValidationTasks("haircolor", value);
           }
-          setHair(value);
+          setHaircolor(value);
         }}
-        onBlur={() => runValidationTasks("hair", hair)}
-        errorMessage={errors.hair?.errorMessage}
-        hasError={errors.hair?.hasError}
-        {...getOverrideProps(overrides, "hair")}
+        onBlur={() => runValidationTasks("haircolor", haircolor)}
+        errorMessage={errors.haircolor?.errorMessage}
+        hasError={errors.haircolor?.hasError}
+        {...getOverrideProps(overrides, "haircolor")}
       >
         <option
           children="Blonde"
           value="BLONDE"
-          {...getOverrideProps(overrides, "hairoption0")}
+          {...getOverrideProps(overrides, "haircoloroption0")}
         ></option>
         <option
           children="Brown"
           value="BROWN"
-          {...getOverrideProps(overrides, "hairoption1")}
+          {...getOverrideProps(overrides, "haircoloroption1")}
         ></option>
         <option
           children="Black"
           value="BLACK"
-          {...getOverrideProps(overrides, "hairoption2")}
+          {...getOverrideProps(overrides, "haircoloroption2")}
         ></option>
         <option
           children="Grey"
           value="GREY"
-          {...getOverrideProps(overrides, "hairoption3")}
+          {...getOverrideProps(overrides, "haircoloroption3")}
         ></option>
         <option
           children="Red"
           value="RED"
-          {...getOverrideProps(overrides, "hairoption4")}
+          {...getOverrideProps(overrides, "haircoloroption4")}
         ></option>
       </SelectField>
       <SelectField
@@ -873,7 +901,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle: value,
               facialhair,
               ethnicity,
@@ -882,6 +910,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.hairstyle ?? value;
@@ -941,7 +970,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair: value,
               ethnicity,
@@ -950,6 +979,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.facialhair ?? value;
@@ -1004,7 +1034,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity: value,
@@ -1013,6 +1043,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.ethnicity ?? value;
@@ -1077,7 +1108,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -1086,6 +1117,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.glasses ?? value;
@@ -1130,7 +1162,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -1139,6 +1171,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.dress ?? value;
@@ -1198,7 +1231,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -1207,6 +1240,7 @@ export default function PersonUpdateForm(props) {
               persontype: value,
               image,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.persontype ?? value;
@@ -1266,7 +1300,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -1275,6 +1309,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image: value,
               uri,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.image ?? value;
@@ -1308,7 +1343,7 @@ export default function PersonUpdateForm(props) {
               agegroup,
               height,
               build,
-              hair,
+              haircolor,
               hairstyle,
               facialhair,
               ethnicity,
@@ -1317,6 +1352,7 @@ export default function PersonUpdateForm(props) {
               persontype,
               image,
               uri: value,
+              constituency,
             };
             const result = onChange(modelFields);
             value = result?.uri ?? value;
@@ -1330,6 +1366,49 @@ export default function PersonUpdateForm(props) {
         errorMessage={errors.uri?.errorMessage}
         hasError={errors.uri?.hasError}
         {...getOverrideProps(overrides, "uri")}
+      ></TextField>
+      <TextField
+        label="Constituency"
+        isRequired={false}
+        isReadOnly={false}
+        value={constituency}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              first_name,
+              last_name,
+              person_id,
+              external_id,
+              gender,
+              party,
+              eyecolor,
+              agegroup,
+              height,
+              build,
+              haircolor,
+              hairstyle,
+              facialhair,
+              ethnicity,
+              glasses,
+              dress,
+              persontype,
+              image,
+              uri,
+              constituency: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.constituency ?? value;
+          }
+          if (errors.constituency?.hasError) {
+            runValidationTasks("constituency", value);
+          }
+          setConstituency(value);
+        }}
+        onBlur={() => runValidationTasks("constituency", constituency)}
+        errorMessage={errors.constituency?.errorMessage}
+        hasError={errors.constituency?.hasError}
+        {...getOverrideProps(overrides, "constituency")}
       ></TextField>
       <Flex
         justifyContent="space-between"

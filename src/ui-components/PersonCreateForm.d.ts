@@ -23,7 +23,7 @@ export declare type PersonCreateFormInputValues = {
     agegroup?: string;
     height?: string;
     build?: string;
-    hair?: string;
+    haircolor?: string;
     hairstyle?: string;
     facialhair?: string;
     ethnicity?: string;
@@ -32,6 +32,7 @@ export declare type PersonCreateFormInputValues = {
     persontype?: string;
     image?: string;
     uri?: string;
+    constituency?: string;
 };
 export declare type PersonCreateFormValidationValues = {
     first_name?: ValidationFunction<string>;
@@ -44,7 +45,7 @@ export declare type PersonCreateFormValidationValues = {
     agegroup?: ValidationFunction<string>;
     height?: ValidationFunction<string>;
     build?: ValidationFunction<string>;
-    hair?: ValidationFunction<string>;
+    haircolor?: ValidationFunction<string>;
     hairstyle?: ValidationFunction<string>;
     facialhair?: ValidationFunction<string>;
     ethnicity?: ValidationFunction<string>;
@@ -53,6 +54,7 @@ export declare type PersonCreateFormValidationValues = {
     persontype?: ValidationFunction<string>;
     image?: ValidationFunction<string>;
     uri?: ValidationFunction<string>;
+    constituency?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PersonCreateFormOverridesProps = {
@@ -67,7 +69,7 @@ export declare type PersonCreateFormOverridesProps = {
     agegroup?: PrimitiveOverrideProps<SelectFieldProps>;
     height?: PrimitiveOverrideProps<SelectFieldProps>;
     build?: PrimitiveOverrideProps<SelectFieldProps>;
-    hair?: PrimitiveOverrideProps<SelectFieldProps>;
+    haircolor?: PrimitiveOverrideProps<SelectFieldProps>;
     hairstyle?: PrimitiveOverrideProps<SelectFieldProps>;
     facialhair?: PrimitiveOverrideProps<SelectFieldProps>;
     ethnicity?: PrimitiveOverrideProps<SelectFieldProps>;
@@ -76,6 +78,7 @@ export declare type PersonCreateFormOverridesProps = {
     persontype?: PrimitiveOverrideProps<SelectFieldProps>;
     image?: PrimitiveOverrideProps<TextFieldProps>;
     uri?: PrimitiveOverrideProps<TextFieldProps>;
+    constituency?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type PersonCreateFormProps = React.PropsWithChildren<{
     overrides?: PersonCreateFormOverridesProps | undefined | null;

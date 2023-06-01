@@ -4,6 +4,7 @@ import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { API, Storage } from "aws-amplify";
 import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 import {
   Flex,
   Heading,
@@ -150,6 +151,7 @@ const App = ({ signOut }) => {
               justifyContent="center"
               alignItems="center"
             >
+              <Link href={person.uri} target="_blank" rel="noreferrer">{person.external_id}</Link>
               <Text>{person.first_name}</Text>
               <Text>{person.last_name}</Text>
               <Text>{person.gender}</Text>
@@ -157,7 +159,6 @@ const App = ({ signOut }) => {
               <Text>{person.ethnicity}</Text>
               <Text>{person.glasses}</Text>
               <Text>{person.dress}</Text>
-              <Text>( {person.external_id})</Text>
               <Text>{person.agegroup}</Text>
               <Text>{person.eyecolor}</Text>
               <Text>{person.build}</Text>
@@ -190,6 +191,7 @@ const App = ({ signOut }) => {
               <Text>{person.eyecolor}</Text>
               <Text>BU {person.build}</Text>
               <Text>HI {person.height}</Text>
+              
               <Button variation="link" onClick={() => deletePerson(person)}>
                 Delete
               </Button>

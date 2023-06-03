@@ -1,42 +1,24 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
-import RadioGroup, { useRadioGroup } from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
-import Button from "@mui/material/Button";
-import FormLabel from "@mui/material/FormLabel";
 import { useState, useEffect, useReducer } from "react";
 import "../App.css";
-import { View, Flex, Heading, Text, TextField } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+
 import { API } from "aws-amplify";
+import * as React from "react";
+
+import RadioGroup from "@mui/joy/RadioGroup";
+import Radio from "@mui/joy/Radio";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import {
+  Flex,
+  Heading,
+  Text,
+  TextField,
+  View,
+  withAuthenticator,
+} from "@aws-amplify/ui-react";
 
 import { listEnums } from "../graphql/slugqueries";
-
-const StyledFormControlLabel = styled((props) => (
-  <FormControlLabel {...props} />
-))(({ theme, checked }) => ({
-  ".MuiFormControlLabel-label": checked && {
-    color: theme.palette.primary.main,
-  },
-}));
-
-function MyFormControlLabel(props) {
-  const radioGroup = useRadioGroup();
-  let checked = false;
-  if (radioGroup) {
-    checked = radioGroup.value === props.value;
-  }
-  return <StyledFormControlLabel checked={checked} {...props} />;
-}
-
-MyFormControlLabel.propTypes = {
-  /**
-   * The value of the component.
-   */
-  value: PropTypes.any,
-};
 
 /**
  * The Generic RadioEnum Component
@@ -114,26 +96,62 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
   }
 
   return (
-    <View>
-      <Flex direction="row" justifyContent="left">
-        <FormLabel id="enumType" >{enumType}</FormLabel>
-        <RadioGroup row name="use-radio-group">
-          {enumList.map((value) => (
-            <MyFormControlLabel
+    <RadioGroup aria-label="Your plan" name="people">
+      <List
+        orientation="horizontal"
+        sx={{
+          minWidth: 0,
+          "--List-gap": "0.5rem",
+          "--ListItem-paddingY": "1rem",
+          "--ListItem-radius": "8px",
+          "--ListItemDecorator-size": "32px",
+        }}
+      >
+        
+        {enumList.map((value, index) => (
+          <ListItem
+            variant="outlined"
+            key={value.name}
+            sx={{
+              width: 150,
+              boxShadow: "sm",
+              backgroundColor: "blue",
+              bgcolor: "background.body",
+            }}
+            value={value.name}
+          >
+            <ListItemDecorator>
+              <img
+                height="40px"
+                alt={value.name}
+                // src={process.env.PUBLIC_URL + "/images/cliveli.jpeg"}
+                sx={{ width: 30, height: 30 }}
+              />
+            </ListItemDecorator>
+            <Radio
+              id={enumType}
+              overlay
               value={value.name}
-              label={value.name}
-              key={value.name}
-              control={
-                <Radio
-                  id={enumType}
-                  checked={radiovalue === value.name}
-                  onClick={updateSelection}
-                />
-              }
+              onClick={updateSelection}
+              checked={radiovalue === value.name}
+              sx={{ flexGrow: 1, flexDirection: "row-reverse" }}
+              slotProps={{
+                action: ({ checked }) => ({
+                  sx: (theme) => ({
+                    ...(checked && {
+                      inset: 2,
+                      border: "5px solid",
+                      borderColor: "red",
+                    }),
+                  }),
+                }),
+              }}
             />
-          ))}
-        </RadioGroup>
-      </Flex>
-    </View>
+          </ListItem>
+        ))}
+      </List>
+    </RadioGroup>
   );
 }
+
+// <Avatar alt="TEST" src={process.env.PUBLIC_URL + '/images/icons8-tick-60.png'} sx={{ width: 30, height: 30 }}/>

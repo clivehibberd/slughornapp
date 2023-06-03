@@ -10,6 +10,7 @@ export default function CharacteristicsSelector() {
     const { enumMap, setEnumMap } = useContext(ApplicationContext );
   return (
     <>
+      <EnumRadioSelector enumType={"PersonType"} enumMap={enumMap} /> 
       <EnumRadioSelector enumType={"Gender"} enumMap={enumMap} /> 
       <EnumRadioSelector enumType={"Party"} enumMap={enumMap} />     
       <EnumRadioSelector enumType={"AgeGroup"} enumMap={enumMap} />

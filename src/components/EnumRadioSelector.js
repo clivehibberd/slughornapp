@@ -9,6 +9,7 @@ import Radio from "@mui/joy/Radio";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Tooltip from '@mui/joy/Tooltip';
 import {
   Flex,
   Heading,
@@ -19,6 +20,7 @@ import {
 } from "@aws-amplify/ui-react";
 
 import { listEnums } from "../graphql/slugqueries";
+import imagemapjson from "./static/imagemap.json";
 
 /**
  * The Generic RadioEnum Component
@@ -95,6 +97,28 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
     setEnumList(enumsFromSchema);
   }
 
+  /**
+   * The following consts and method deal with locating the correct image to populate the radio button
+   */
+  const imagemap = new Map(Object.entries(imagemapjson));
+
+  /**
+   *
+   * @param {The Key to the enum you are looking-up} entryKey
+   * @returns The usable path and filename of the image found or <undefined>
+   */
+  function getImage(entryKey) {
+    var useablePath;
+    try {
+      const mapOfCharacteristics = new Map(
+        Object.entries(imagemap.get(enumType))
+      );
+      const relativePath = mapOfCharacteristics.get(entryKey);
+      useablePath = process.env.PUBLIC_URL + relativePath;
+    } catch {}
+    return useablePath;
+  }
+
   return (
     <RadioGroup aria-label="Your plan" name="people">
       <List
@@ -107,27 +131,29 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
           "--ListItemDecorator-size": "32px",
         }}
       >
-        
         {enumList.map((value, index) => (
+          
           <ListItem
             variant="outlined"
             key={value.name}
             sx={{
-              width: 150,
+              width: 100,
               boxShadow: "sm",
               backgroundColor: "blue",
               bgcolor: "background.body",
             }}
             value={value.name}
           >
+            
             <ListItemDecorator>
               <img
                 height="40px"
                 alt={value.name}
-                // src={process.env.PUBLIC_URL + "/images/cliveli.jpeg"}
+                src={getImage(value.name)}
                 sx={{ width: 30, height: 30 }}
               />
             </ListItemDecorator>
+            
             <Radio
               id={enumType}
               overlay
@@ -147,7 +173,9 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
                 }),
               }}
             />
+
           </ListItem>
+          
         ))}
       </List>
     </RadioGroup>

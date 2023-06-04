@@ -1,0 +1,14 @@
+[
+    "PersonType",
+    "Gender",
+    "Party",
+    "AgeGroup",
+    "Ethnicity",
+    "Glasses",
+    "FacialHair",
+    "HairColor",
+    "Build",
+    "Dress",
+    "EyeColor",
+    "Height"
+]

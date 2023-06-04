@@ -267,7 +267,7 @@ const App = ({ signOut }) => {
         </View>
       </View>
       <View as="form" onSubmit={importMps}>
-        <Button disabled="{true}" type="submit" variation="secondary">
+        <Button disabled={true} type="submit" variation="secondary">
           Import MPs
         </Button>
       </View>

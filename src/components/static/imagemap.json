@@ -1,0 +1,26 @@
+{
+  "Gender": {
+    "MALE": "./images/icons8-male-50.png",
+    "FEMALE": "/images/icons8-female-50.png",
+    "OTHER" : "/images/icons8-agender-symbol-50.png"
+  },
+
+  "PersonType": {
+    "LORD": "./images/LORDS.jpg",
+    "MP": "./images/MPS.png",
+    "MSP": "./images/MSP.png",
+    "MLA": "./images/NLA.png",
+    "MWA": " ./images/WMP.png"
+  },
+
+  "Party": {
+    "CONSERVATIVE": "/images/TORY.jpg",
+    "LABOUR": "/images/LAB.png",
+    "LIBDEM": "/images/LIBDEM.jpg",
+    "SNP": "/images/SNP.jpg",
+    "PLAIDCYMRU": "/images/PLAID.jpg",
+    "OTHER": "/images/icons8-question-mark-50.png"
+  }
+}
+
+

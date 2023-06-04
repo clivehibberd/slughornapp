@@ -20,6 +20,18 @@
     "SNP": "/images/SNP.jpg",
     "PLAIDCYMRU": "/images/PLAID.jpg",
     "OTHER": "/images/icons8-question-mark-50.png"
+  },
+
+  "FacialHair":{
+    "NONE": "/images/icons8-face-50.png",
+    "MOUSTACHE": "/images/icons8-mustache-50.png",
+    "GOATEE": "/images/icons8-goatee-50.png",
+    "BEARD": "/images/icons8-short-beard-50.png"
+  },
+
+  "Glasses":{
+    "YES": "/images/icons8-glasses-50.png",
+    "NO" :"/images/icons8-no-glasses-50.png"
   }
 }
 

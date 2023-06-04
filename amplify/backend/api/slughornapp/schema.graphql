@@ -74,9 +74,9 @@ enum HairColor {
 # This is OK. Not fussed at all
 enum FacialHair {
   NONE
-  BEARD
   MOUSTACHE
   GOATEE
+  BEARD
 }
 
 # OK ,so this is a minefield...Ask Liberty for what we need here

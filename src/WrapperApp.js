@@ -5,10 +5,12 @@ import "@aws-amplify/ui-react/styles.css";
 import { ApplicationProvider } from "./contexts/applicationcontext";
 import {FilteredPeopleProvider} from "./contexts/filteredpeoplecontext";
 import SlugDrawer from "./appcomponents/SlugDrawer";
+import {Button, withAuthenticator } from "@aws-amplify/ui-react";
 
+const WrapperApp = ({ signOut }) => {
 
-export default function WrapperApp() {
   return (
+    <div>
     <FilteredPeopleProvider>
     <ApplicationProvider>
       <div className="App">
@@ -16,5 +18,8 @@ export default function WrapperApp() {
       </div>
     </ApplicationProvider>
     </FilteredPeopleProvider>
+     <Button onClick={signOut}>Sign Out</Button>
+     </div>
   );
 }
+export default withAuthenticator(WrapperApp);

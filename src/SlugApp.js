@@ -151,11 +151,13 @@ const App = ({ signOut }) => {
               justifyContent="center"
               alignItems="center"
             >
-              <Link href={person.uri} target="_blank" 
-              
-              rel="noreferrer">
-                <img alt = {person.external_id} src={person.image} style={{width: 50 + 'px'}}>
-                  </img></Link>
+              <Link href={person.uri} target="_blank" rel="noreferrer">
+                <img
+                  alt={person.external_id}
+                  src={person.image}
+                  style={{ width: 50 + "px" }}
+                ></img>
+              </Link>
               <Text>{person.first_name}</Text>
               <Text>{person.last_name}</Text>
               <Text>{person.gender}</Text>
@@ -173,7 +175,6 @@ const App = ({ signOut }) => {
         </View>
         <Heading level={5}>All MPs</Heading>
         <View as="form" margin="3rem 0" onSubmit={fetchPeople}>
-          
           {people.map((person) => (
             <Flex
               key={person.id || person.last_name}
@@ -193,15 +194,14 @@ const App = ({ signOut }) => {
               <Text>{person.eyecolor}</Text>
               <Text>BU {person.build}</Text>
               <Text>HI {person.height}</Text>
-              
+
               <Button variation="link" onClick={() => deletePerson(person)}>
                 Delete
               </Button>
             </Flex>
           ))}
         </View>
-        <View hidden={true}
-        as="form" margin="3rem 0" onSubmit={createPerson}>
+        <View hidden={true} as="form" margin="3rem 0" onSubmit={createPerson}>
           <Flex direction="row" justifyContent="center">
             <TextField
               name="first_name"

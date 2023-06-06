@@ -5,10 +5,11 @@ import { API } from "aws-amplify";
 import * as React from "react";
 
 import RadioGroup from "@mui/joy/RadioGroup";
-import Radio from "@mui/joy/Radio";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import Radio, { radioClasses } from '@mui/joy/Radio';
 
 import { listEnums } from "../graphql/slugqueries";
 import imagemapjson from "./static/imagemap.json";
@@ -111,13 +112,36 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
   }
 
   return (
-    <RadioGroup aria-label="Your plan" name="people">
+    <RadioGroup aria-label="Your plan" name="people"
+    sx={{
+      flexDirection: 'row',
+      gap: 2,
+      [`& .${radioClasses.checked}`]: {
+        [`& .${radioClasses.action}`]: {
+          inset: -1,
+          border: '3px solid',
+          borderColor: 'primary.500',
+        },
+      },
+      [`& .${radioClasses.radio}`]: {
+        display: 'contents',
+        '& > svg': {
+          zIndex: 2,
+          position: 'absolute',
+          top: '-8px',
+          right: '-8px',
+          bgcolor: 'background.body',
+          borderRadius: '50%',
+        },
+      },
+    }}>
       <List
         orientation="horizontal"
         sx={{
           minWidth: 0,
           "--List-gap": "0.5rem",
           "--ListItem-paddingY": "1rem",
+          "--ListItem-paddingX": "0.25rem",
           "--ListItem-radius": "8px",
           "--ListItemDecorator-size": "32px",
         }}
@@ -128,7 +152,8 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
             variant="outlined"
             key={value.name}
             sx={{
-              width: 100,
+              width: 50,
+              height:50,
               boxShadow: "sm",
               backgroundColor: "blue",
               bgcolor: "background.body",
@@ -147,6 +172,7 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
             
             <Radio
               id={enumType}
+              checkedIcon={<CheckCircleRoundedIcon />}
               overlay
               value={value.name}
               onClick={updateSelection}

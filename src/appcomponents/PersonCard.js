@@ -47,6 +47,13 @@ export default function PersonCard({ person }) {
                 >
                   {person.party}
                 </Typography>
+                <Typography
+                  sx={{ fontSize: 10 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  {person.external_id}
+                </Typography>
               </td>
             </tr>
           </table>

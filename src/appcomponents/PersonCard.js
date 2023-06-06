@@ -20,7 +20,7 @@ const bull = (
 
 export default function PersonCard({ person }) {
   return (
-    <Card sx={{ width: 250, maxHeight: 150 }}>
+    <Card sx={{ width: 220, maxHeight: 250 }}>
       <CardActionArea href={person.uri} target="_blank" rel="noreferrer">
         <CardContent>
           <table align="left">
@@ -29,11 +29,13 @@ export default function PersonCard({ person }) {
               <td>
                 <CardMedia
                   component="img"
-                  height="100"
+                  height="150"
                   image={person.image}
                   alt={person.external_id}
                 />
               </td>
+            </tr>
+            <tr>
               <td>
                 <Typography variant="h12">
                   {person.first_name} {person.last_name} ({person.persontype})

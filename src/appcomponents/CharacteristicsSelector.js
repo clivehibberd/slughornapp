@@ -3,9 +3,10 @@ import "../App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { useContext } from "react";
 
-import EnumRadioSelector from "./EnumRadioSelector";
-import { ApplicationContext } from "./applicationcontext";
-import characteristicsList from "./static/characteristics.json";
+import EnumRadioSelector from "../components/EnumRadioSelector";
+import { ApplicationContext } from "../contexts/applicationcontext";
+
+import characteristicsList from "../components/static/characteristics.json";
 
 
 export default function CharacteristicsSelector() {
@@ -14,7 +15,7 @@ export default function CharacteristicsSelector() {
   return (
     <>
    {characteristicsList.map((characteristic) => (      
-      <EnumRadioSelector enumType={characteristic} enumMap={enumMap} />
+      <EnumRadioSelector key={characteristic} enumType={characteristic} enumMap={enumMap} />
     ))}      
     </>
   );

@@ -28,7 +28,7 @@ import {
 } from "./graphql/mutations";
 
 import thevalue from "./components/EnumRadioSelector";
-import { ApplicationContext } from "./components/applicationcontext";
+import { ApplicationContext } from "./contexts/applicationcontext";
 import { useContext } from "react";
 import { AndEnumFilterGenerator } from "./graphql/util/filterbuilder";
 import mpsToImport from "./dummy/6mps.json";

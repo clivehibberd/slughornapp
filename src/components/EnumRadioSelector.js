@@ -9,15 +9,6 @@ import Radio from "@mui/joy/Radio";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
-import Tooltip from '@mui/joy/Tooltip';
-import {
-  Flex,
-  Heading,
-  Text,
-  TextField,
-  View,
-  withAuthenticator,
-} from "@aws-amplify/ui-react";
 
 import { listEnums } from "../graphql/slugqueries";
 import imagemapjson from "./static/imagemap.json";
@@ -31,7 +22,7 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
   const [enumList, setEnumList] = useState([]);
   const [radiovalue, setRadioValue] = useState([]);
   const savedEnumReducer = (state, action) => {
-    // get the book object and the type of action by destructuring
+    
     const { enumType, enumValue, type } = action;
     console.log("Reducer state is ", state);
     if (type === "add") {

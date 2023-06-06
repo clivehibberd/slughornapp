@@ -1,21 +1,20 @@
 import React from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
-import SlugApp from "./SlugApp.js";
-import  CharacteristicsSelector  from "./components/CharacteristicsSelector";
-import { ApplicationProvider } from "./components/applicationcontext";
-import MainNav from "./components/MainNav.js";
-import ResponsiveNavBar from "./components/ResponsiveNav.tsx";
-import RadioPositionEnd from "./scratch/radioList";
+
+import { ApplicationProvider } from "./contexts/applicationcontext";
+import {FilteredPeopleProvider} from "./contexts/filteredpeoplecontext";
+import SlugDrawer from "./appcomponents/SlugDrawer";
+
 
 export default function WrapperApp() {
   return (
+    <FilteredPeopleProvider>
     <ApplicationProvider>
       <div className="App">
-    <ResponsiveNavBar/>
-        <CharacteristicsSelector />
-        <SlugApp/>
+      <SlugDrawer/>
       </div>
     </ApplicationProvider>
+    </FilteredPeopleProvider>
   );
 }

@@ -2,7 +2,7 @@
   "Gender": {
     "MALE": "./images/icons8-male-50.png",
     "FEMALE": "/images/icons8-female-50.png",
-    "OTHER" : "/images/icons8-agender-symbol-50.png"
+    "OTHER": "/images/icons8-agender-symbol-50.png"
   },
 
   "PersonType": {
@@ -22,17 +22,58 @@
     "OTHER": "/images/icons8-question-mark-50.png"
   },
 
-  "FacialHair":{
+  "FacialHair": {
     "NONE": "/images/icons8-face-50.png",
     "MOUSTACHE": "/images/icons8-mustache-50.png",
     "GOATEE": "/images/icons8-goatee-50.png",
     "BEARD": "/images/icons8-short-beard-50.png"
   },
 
-  "Glasses":{
+  "Glasses": {
     "YES": "/images/icons8-glasses-50.png",
-    "NO" :"/images/icons8-no-glasses-50.png"
+    "NO": "/images/icons8-eyes-50.png"
+  },
+
+  "AgeGroup": {
+    "YOUNG": "/images/L30.png",
+    "THIRTIES": "/images/G30.png",
+    "FORTIES": "/images/G40.png",
+    "FIFTIES": "/images/G50.png",
+    "SIXTIES": "/images/G60.png",
+    "SEVENTYPLUS": "/images/G70.png"
+  },
+
+  "Build":{
+    "SKINNY": "/images/icons8-bodyanno-51.png",
+    "SLIM": "/images/icons8-bodythin-51.png",
+    "AVG": "/images/icons8-bodyavg-51.png",
+    "TUBBY": "/images/icons8-bodytubby-51.png",
+    "FAT": "/images/icons8-bodyfat-51.png",
+    "HUGE": "/images/icons8-bodyhuge-51.png"
+  },
+
+  "Ethnicity":{
+    "WHITE": "/images/FZP1.png",
+    "ORIENTAL": "/images/FZP2.png",
+    "ASIAN": "/images/FZP3.png",
+    "APAC": "/images/FZP4.png",
+    "AFRICAN": "/images/FZP5.png",
+    "BLACK": "/images/FZP6.png"
+  },
+
+  "Height":{
+    "SHORT": "/images/icons8-body-type-short-50.png",
+    "AVG": "/images/icons8-body-type-average-50.png",
+    "TALL": "/images/icons8-body-type-tall-50.png",
+    "GIANT": "/images/icons8-body-type-tall-50.png"
+  },
+
+  "HairColor":{
+  "BLONDE": "/images/hair-blonde.png",
+  "BROWN": "/images/hair-brown.png",
+  "BLACK": "/images/hair-black.png",
+  "GREY": "/images/hair-gray.png",
+  "RED": "/images/hair-red.png"
   }
+
 }
-
-

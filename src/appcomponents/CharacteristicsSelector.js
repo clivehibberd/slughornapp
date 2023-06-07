@@ -16,7 +16,8 @@ export default function CharacteristicsSelector() {
     <>
    {characteristicsList.map((characteristic) => (      
       <EnumRadioSelector key={characteristic} enumType={characteristic} enumMap={enumMap} />
-    ))}      
+    ))}  
+    <br/>    
     </>
   );
 }

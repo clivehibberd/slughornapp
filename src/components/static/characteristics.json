@@ -2,6 +2,7 @@
     "PersonType",
     "Gender",
     "Party",
+    "HairStyle",
     "AgeGroup",
     "Ethnicity",
     "Glasses",

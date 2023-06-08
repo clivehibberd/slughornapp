@@ -9,7 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 
 import CharacteristicsSelector  from "./CharacteristicsSelector";
 import SlugSearchResults from "./SlugSearchResults";
@@ -140,7 +140,7 @@ export default function SlugDrawer() {
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
-            <MenuIcon />
+            <SearchIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Slughorn

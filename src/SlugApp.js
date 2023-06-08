@@ -31,7 +31,7 @@ import thevalue from "./components/EnumRadioSelector";
 import { ApplicationContext } from "./contexts/applicationcontext";
 import { useContext } from "react";
 import { AndEnumFilterGenerator } from "./graphql/util/filterbuilder";
-import mpsToImport from "./dummy/6mps.json";
+import mpsToImport from "./dummy/first50mps.json";
 
 const App = ({ signOut }) => {
   const [people, setPeople] = useState([]);
@@ -267,7 +267,7 @@ const App = ({ signOut }) => {
         </View>
       </View>
       <View as="form" onSubmit={importMps}>
-        <Button disabled={true} type="submit" variation="secondary">
+        <Button disabled={false} type="submit" variation="secondary">
           Import MPs
         </Button>
       </View>

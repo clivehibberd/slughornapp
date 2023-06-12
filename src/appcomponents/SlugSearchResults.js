@@ -19,8 +19,8 @@ export default function SlugSearchResults() {
       <View margin="3rem 0">
         <Grid container spacing={1}>
           {filteredPeople.map((person) => (
-            <Grid item xs="auto">            
-                <PersonCard person={person} />
+            <Grid key={person.external_id} item xs="auto">
+              <PersonCard person={person} />
             </Grid>
           ))}
         </Grid>
@@ -28,4 +28,3 @@ export default function SlugSearchResults() {
     </View>
   );
 }
-

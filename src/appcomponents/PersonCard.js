@@ -24,7 +24,7 @@ export default function PersonCard({ person }) {
       <CardActionArea href={person.uri} target="_blank" rel="noreferrer">
         <CardContent>
           <table align="left">
-            <th></th>
+            <tbody>
             <tr>
               <td>
                 <CardMedia
@@ -56,6 +56,7 @@ export default function PersonCard({ person }) {
                 </Typography>
               </td>
             </tr>
+            </tbody>
           </table>
         </CardContent>
       </CardActionArea>

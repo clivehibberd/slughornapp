@@ -173,7 +173,7 @@ export default function SlugDrawer() {
         open={open}
       >
         <DrawerHeader>
-        <IconButton onClick={handleDrawerClear}>CLEAR</IconButton>
+        
           <IconButton onClick={handleDrawerQuit}>ESC</IconButton>
           <IconButton onClick={handleDrawerClose}>GO</IconButton>
         </DrawerHeader>

@@ -9,6 +9,7 @@ import {
   View
 } from "@aws-amplify/ui-react";
 import WrapperApp from "./WrapperApp";
+import AuthApp from "./scratch/AuthExample";
 
 Amplify.configure(config);
 

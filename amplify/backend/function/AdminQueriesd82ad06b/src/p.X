@@ -11,5 +11,9 @@
   },
   "devDependencies": {
     "aws-sdk": "^2.1350.0"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": ""
 }

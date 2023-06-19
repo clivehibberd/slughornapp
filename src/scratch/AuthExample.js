@@ -10,7 +10,7 @@ async function addToGroup() {
   let myInit = {
       body: {
         "username" : "richard",
-        "groupname": "Editors"
+        "groupname": "shadmin"
       }, 
       headers: {
         'Content-Type' : 'application/json',
@@ -27,7 +27,7 @@ async function listEditors(limit){
   let path = '/listUsersInGroup';
   let myInit = { 
       queryStringParameters: {
-        "groupname": "Editors",
+        "groupname": "shadmin",
         "limit": limit,
         "token": nextToken
       },

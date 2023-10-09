@@ -7,7 +7,7 @@ import {FilteredPeopleProvider} from "./contexts/filteredpeoplecontext";
 import {TriggerProvider} from "./contexts/triggercontext";
 import SlugDrawer from "./appcomponents/SlugDrawer";
 import {Button, withAuthenticator } from "@aws-amplify/ui-react";
-//import SlugApp from "./SlugApp.js";
+import SlugApp from "./SlugApp.js";
 
 const WrapperApp = ({ signOut }) => {
 

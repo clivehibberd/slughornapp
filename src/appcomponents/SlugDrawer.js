@@ -155,7 +155,7 @@ export default function SlugDrawer() {
             <SearchIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Slughorn
+            Slughorn Alpha
           </Typography>
         </Toolbar>
       </AppBar>

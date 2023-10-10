@@ -81,11 +81,11 @@ export default function EnumRadioGroup({ enumType, enumMap }) {
       variables: { name: enumType },
     });
     const enumsFromSchema = apiData.data.__type.enumValues;
-    await Promise.all(
+    /*await Promise.all(
       enumsFromSchema.map(async (value) => {
         console.log("Got enum : ", value.name);
       })
-    );
+    );*/
     setEnumList(enumsFromSchema);
   }
 

@@ -120,7 +120,7 @@ export default function SlugDrawer() {
 
   async function searchPeople( map) {
     const filter = AndEnumFilterGenerator(map);
-    console.log("Filter is ", filter);
+    //console.log("Filter is ", filter);
     const queryTemplate = DynamicPersonQueryTemplate;
     const queryToExecute = queryTemplate.replace("FILTER", filter);
 
@@ -155,7 +155,7 @@ export default function SlugDrawer() {
             <SearchIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Slughorn Alpha
+            Slughorn
           </Typography>
         </Toolbar>
       </AppBar>

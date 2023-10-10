@@ -56,10 +56,10 @@ const App = ({ signOut }) => {
       query: queryToExecute,
     });
     const peopleFromAPI = apiData.data.listPeople.items;
-          console.log(peopleFromAPI.listPeople);
+    //      console.log(peopleFromAPI.listPeople);
     await Promise.all(
       peopleFromAPI.map(async (person) => {
-                 console.log(person);
+        //          console.log(person);
       })
     );
     setFilteredPeople(peopleFromAPI);
@@ -77,7 +77,7 @@ const App = ({ signOut }) => {
     await Promise.all(
       peopleFromAPI.map(async (person) => {
         if (person.lastname) {
-                    console.log(person.lastname);
+          //          console.log(person.lastname);
         }
       })
     );

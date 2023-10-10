@@ -1,27 +1,5 @@
 {
   "api": {
-    "AdminQueries": {
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "slughornappa3c48021"
-        },
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "AdminQueriesd82ad06b"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "slughornapp": {
       "dependsOn": [],
       "output": {
@@ -68,40 +46,6 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
-    }
-  },
-  "function": {
-    "AdminQueriesd82ad06b": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "slughornappa3c48021"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_AdminQueriesd82ad06b_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "AdminQueriesd82ad06b"
-        }
-      ]
-    },
-    "AMPLIFY_function_AdminQueriesd82ad06b_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "AdminQueriesd82ad06b"
-        }
-      ]
     }
   },
   "storage": {

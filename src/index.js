@@ -10,14 +10,12 @@ import {
 } from "@aws-amplify/ui-react";
 import WrapperApp from "./WrapperApp";
 
-
 Amplify.configure(config);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <WrapperApp/>
-
   </React.StrictMode>
 );
 

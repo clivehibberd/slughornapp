@@ -34,7 +34,3 @@ export { default as NavBar } from "./NavBar";
 export { default as ContactUs } from "./ContactUs";
 export { default as SocialPost } from "./SocialPost";
 export { default as studioTheme } from "./studioTheme";
-export { default as NoteCreateForm } from "./NoteCreateForm";
-export { default as NoteUpdateForm } from "./NoteUpdateForm";
-export { default as PersonCreateForm } from "./PersonCreateForm";
-export { default as PersonUpdateForm } from "./PersonUpdateForm";

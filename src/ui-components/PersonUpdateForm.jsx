@@ -14,9 +14,10 @@ import {
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Person } from "../models";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { getPerson } from "../graphql/queries";
+import { updatePerson } from "../graphql/mutations";
 export default function PersonUpdateForm(props) {
   const {
     id: idProp,
@@ -106,7 +107,12 @@ export default function PersonUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Person, idProp)
+        ? (
+            await API.graphql({
+              query: getPerson.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getPerson
         : personModelProp;
       setPersonRecord(record);
     };
@@ -161,26 +167,26 @@ export default function PersonUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          first_name,
-          last_name,
-          person_id,
-          external_id,
-          gender,
-          party,
-          eyecolor,
-          agegroup,
-          height,
-          build,
-          haircolor,
-          hairstyle,
-          facialhair,
-          ethnicity,
-          glasses,
-          dress,
-          persontype,
-          image,
-          uri,
-          constituency,
+          first_name: first_name ?? null,
+          last_name: last_name ?? null,
+          person_id: person_id ?? null,
+          external_id: external_id ?? null,
+          gender: gender ?? null,
+          party: party ?? null,
+          eyecolor: eyecolor ?? null,
+          agegroup: agegroup ?? null,
+          height: height ?? null,
+          build: build ?? null,
+          haircolor: haircolor ?? null,
+          hairstyle: hairstyle ?? null,
+          facialhair: facialhair ?? null,
+          ethnicity: ethnicity ?? null,
+          glasses: glasses ?? null,
+          dress: dress ?? null,
+          persontype: persontype ?? null,
+          image: image ?? null,
+          uri: uri ?? null,
+          constituency: constituency ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -206,21 +212,26 @@ export default function PersonUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            Person.copyOf(personRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updatePerson.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: personRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -1000,18 +1011,18 @@ export default function PersonUpdateForm(props) {
           {...getOverrideProps(overrides, "facialhairoption0")}
         ></option>
         <option
-          children="Beard"
-          value="BEARD"
-          {...getOverrideProps(overrides, "facialhairoption1")}
-        ></option>
-        <option
           children="Moustache"
           value="MOUSTACHE"
-          {...getOverrideProps(overrides, "facialhairoption2")}
+          {...getOverrideProps(overrides, "facialhairoption1")}
         ></option>
         <option
           children="Goatee"
           value="GOATEE"
+          {...getOverrideProps(overrides, "facialhairoption2")}
+        ></option>
+        <option
+          children="Beard"
+          value="BEARD"
           {...getOverrideProps(overrides, "facialhairoption3")}
         ></option>
       </SelectField>

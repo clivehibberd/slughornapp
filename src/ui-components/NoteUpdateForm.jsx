@@ -8,9 +8,10 @@
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Note } from "../models";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { getNote } from "../graphql/queries";
+import { updateNote } from "../graphql/mutations";
 export default function NoteUpdateForm(props) {
   const {
     id: idProp,
@@ -50,7 +51,12 @@ export default function NoteUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Note, idProp)
+        ? (
+            await API.graphql({
+              query: getNote.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getNote
         : noteModelProp;
       setNoteRecord(record);
     };
@@ -90,9 +96,9 @@ export default function NoteUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           name,
-          description,
-          image,
-          externalid,
+          description: description ?? null,
+          image: image ?? null,
+          externalid: externalid ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -118,21 +124,26 @@ export default function NoteUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            Note.copyOf(noteRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updateNote.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: noteRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

@@ -14,9 +14,9 @@ import {
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Person } from "../models";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { createPerson } from "../graphql/mutations";
 export default function PersonCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -191,11 +191,18 @@ export default function PersonCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(new Person(modelFields));
+          await API.graphql({
+            query: createPerson.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -204,7 +211,8 @@ export default function PersonCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -984,18 +992,18 @@ export default function PersonCreateForm(props) {
           {...getOverrideProps(overrides, "facialhairoption0")}
         ></option>
         <option
-          children="Beard"
-          value="BEARD"
-          {...getOverrideProps(overrides, "facialhairoption1")}
-        ></option>
-        <option
           children="Moustache"
           value="MOUSTACHE"
-          {...getOverrideProps(overrides, "facialhairoption2")}
+          {...getOverrideProps(overrides, "facialhairoption1")}
         ></option>
         <option
           children="Goatee"
           value="GOATEE"
+          {...getOverrideProps(overrides, "facialhairoption2")}
+        ></option>
+        <option
+          children="Beard"
+          value="BEARD"
           {...getOverrideProps(overrides, "facialhairoption3")}
         ></option>
       </SelectField>

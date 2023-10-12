@@ -4,3 +4,6 @@
   "DynamoDBEnableServerSideEncryption": false,
   "AuthModeLastUpdated": "2023-05-14T15:08:43.046Z"
 }
+{
+  "CreateAPIKey": 0
+}

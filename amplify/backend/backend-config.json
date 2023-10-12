@@ -43,11 +43,11 @@
         "verificationMechanisms": [
           "EMAIL"
         ]
-      },
+      }
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
-  },
+  }
   "storage": {
     "slugbucket": {
       "dependsOn": [],

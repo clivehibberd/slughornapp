@@ -137,7 +137,7 @@ const App = ({ signOut }) => {
 
   return (
     <View className="App">
-      <Heading level={1}>SLUGHORN TEST</Heading>
+      <Heading level={1}>SLUGHORN TEST2</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
           <TextField

@@ -21,7 +21,7 @@
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
     }
-  },
+  }
   "auth": {
     "slughornappa3c48021": {
       "customAuth": false,

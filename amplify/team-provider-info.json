@@ -20,12 +20,6 @@
       },
       "storage": {
         "slugbucket": {}
-      },
-      "function": {
-        "AdminQueriesd82ad06b": {
-          "deploymentBucketName": "amplify-amplify4023f3a5ffd34-staging-160038-deployment",
-          "s3Key": "amplify-builds/AdminQueriesd82ad06b-305459537147774d6a42-build.zip"
-        }
       }
     }
   }

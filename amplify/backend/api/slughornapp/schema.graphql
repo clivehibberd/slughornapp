@@ -80,7 +80,7 @@ enum FacialHair {
 }
 
 # OK ,so this is a minefield...Ask Liberty for what we need here
-# I dont care what they're named, but I need to keep it dont to 6 max
+# I dont care what they're named, but I need to keep it down to 6 max
 enum Ethnicity {
   WHITE
   BLACK

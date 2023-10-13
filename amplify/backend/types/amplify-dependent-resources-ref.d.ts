@@ -1,6 +1,10 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    
+    "AdminQueries": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    },
     "slughornapp": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string",
@@ -18,7 +22,6 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolName": "string"
     }
   },
-  
   "storage": {
     "slugbucket": {
       "BucketName": "string",
